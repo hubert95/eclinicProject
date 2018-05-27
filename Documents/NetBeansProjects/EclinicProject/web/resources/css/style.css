@@ -45,7 +45,8 @@ a:link:hover, a:visited:hover  {
     margin-left: 300px;
     height: 98vh;
     background-attachment: fixed;
-    background-image: url(/e-przychodnia/images/background.jpg);
+    /*ściezka sie cos krzaczy*/
+    background-image: url(images/background.jpg);
 }
 
 #logo{
@@ -55,7 +56,8 @@ a:link:hover, a:visited:hover  {
     background-repeat: no-repeat;
     margin-left: 50px;
     background-size: cover;
-    background-image: url(/e-przychodnia/images/clinic_logo.png);
+    /*ściezka sie cos krzaczy*/
+    background-image: url(images/clinic_logo.png);
 }
 
 article{
