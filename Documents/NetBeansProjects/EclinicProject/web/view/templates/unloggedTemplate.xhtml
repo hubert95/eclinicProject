@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="./css/style.css"/>
+        <title>E-przychodnia</title>
+        <ui:insert name="head"></ui:insert>
+    </h:head>
+
+    <h:body>
+
+        <div id="menu_contener">
+            <div id="logo"></div>
+            <div id="wrap">
+                <hr/>
+                <p id="menu_text">MENU</p>
+                <hr/>
+                <div id="navigation">
+                    <h:form>
+                        <h:commandLink class="menu_element" style="border-radius: 10px 0 0 0;" value="Strona główna" action="${templateController.index()}"></h:commandLink>
+                        <h:commandLink class="menu_element" value="Wolne terminy" action="${templateController.freeDates()}"></h:commandLink>
+                        <h:commandLink class="menu_element" value="Specjaliści" action="${templateController.specialists()}"></h:commandLink>
+                        <h:commandLink class="menu_element" style="border-radius: 0 0 0 10px;" value="Oferta przychodni" action="${templateController.clinicOffer()}"></h:commandLink>
+                    </h:form>
+                </div>
+                <hr/>
+            </div>
+            <ui:insert name="menu"></ui:insert>
+        </div>
+
+
+        <div id="main_contener">
+
+            <div id="horizontal_menu">
+                <h:form>
+                    <p:commandButton value="Pomoc" action="${templateController.help()}" />
+                    <p:commandButton value="Zarejestruj się" action="${templateController.register()}" />
+                    <p:commandButton value="Zaloguj się" type="button" onclick="PF('dlg2').show();" />   
+                </h:form>
+
+                <h:form>    
+                    <p:growl id="message" sticky="true" showDetail="true" />
+
+                    <p:dialog header="Logowanie" widgetVar="dlg2" modal="true" height="200" resizable="false">
+                        <p:panelGrid>
+                            <p:row>
+                                <p:column><p:outputLabel value="Login: "/></p:column>
+                                <p:column><p:inputText value="${templateController.login}" required="true" requiredMessage="Proszę wpisać swój login."/></p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><p:outputLabel value="Hasło: "/></p:column>
+                                <p:column><p:inputText type="password" value="${templateController.password}" required="true" requiredMessage="Proszę wpisać swoje hasło."/></p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="2"><p:commandButton style="width: 100%;" value="Zaloguj" update="message" action="${templateController.loginController()}"/></p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="2"><p:commandButton style="width: 100%;" value="Zaloguj przez fb" action="${templateController.loginByFacebook()}"/></p:column>
+                            </p:row>         
+                        </p:panelGrid>
+                    </p:dialog>  
+                </h:form>
+            </div>
+            <article id="main_article">
+                <ui:insert name="content"></ui:insert>
+            </article>
+        </div>
+    </h:body>
+
+</html>

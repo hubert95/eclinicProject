@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns="http://www.w3.org/1999/xhtml"
+                template="../templates/recepcionistTemplate.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="head">
+    </ui:define>
+
+    <ui:define name="menu">
+    </ui:define>
+
+    <ui:define name="content">
+        <h1>Pacjenci</h1>
+        <h:form id="form">
+            <p:tabView>
+                <p:tab title="Wszyscy pacjenci">                    
+                    <h:panelGrid columns="2" cellpadding="10">
+                        <h:outputText
+                            value="Lista pacjentów" />
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="Rezerwacja wizyty" disabled="true">                    
+                    <h:panelGrid columns="2" cellpadding="10">
+                        <h:outputText
+                            value="Rezerwacja wizyty" />
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="Odwołanie wizyty" disabled="true">
+                    <h:panelGrid columns="2" cellpadding="10">
+                        <h:outputText value="Odwołanie wizyty" />
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="Zwrot pieniędzy">
+                    <h:panelGrid columns="2" cellpadding="10">
+                        <h:outputText value="Zwrot pieniędzy" />
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="Zablokowanie konta" disabled="true">
+                    <h:panelGrid columns="2" cellpadding="10">
+                        <h:outputText value="Zablokowanie konta" />
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="Weryfikacja konta" disabled="true">
+                    <h:panelGrid columns="2" cellpadding="10">
+                        <h:outputText value="Weryfikacja konta" />
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="Nowy pacjent">
+                    <h:panelGrid columns="2" cellpadding="10">
+                        <h:outputText value="Nowy pacjent" />
+                    </h:panelGrid>
+                </p:tab>
+            </p:tabView>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

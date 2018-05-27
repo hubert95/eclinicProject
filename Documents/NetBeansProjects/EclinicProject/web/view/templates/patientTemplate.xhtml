@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="./css/style.css"/>
+        <title>E-przychodnia</title>
+        <ui:insert name="head"></ui:insert>
+    </h:head>
+
+    <h:body>
+
+        <div id="menu_contener">
+            <div id="logo"></div>
+            <div id="wrap">
+                <hr/>
+                <p id="menu_text">MENU</p>
+                <hr/>
+                <div id="navigation">
+                    <h:form>
+                        <h:commandLink class="menu_element" style="border-radius: 10px 0 0 0;" value="Strona główna" action="#{templateController.patient()}"></h:commandLink>
+                        <h:commandLink class="menu_element" value="Wolne terminy" action="#{templateController.freeDatesPatient()}"></h:commandLink>
+                        <h:commandLink class="menu_element" value="Moje wizyty" action="#{templateController.myVisits()}"></h:commandLink>
+                        <h:commandLink class="menu_element" value="Specjaliści" action="#{templateController.specialistsPatient()}"></h:commandLink>
+                        <h:commandLink class="menu_element" value="Oferta przychodni" action="#{templateController.specialistsPatient()}"></h:commandLink>
+                        <h:commandLink class="menu_element" style="border-radius: 0 0 0 10px; pointer-events: none;" value="Komunikator" action="#{templateController.clinicOfferPatient()}"></h:commandLink>
+                    </h:form>
+                </div>
+                <hr/>
+            </div>
+            <ui:insert name="menu"></ui:insert>
+        </div>
+
+
+        <div id="main_contener">
+            <div id="horizontal_menu">
+                <p id="login_text">Witaj Imię Nazwisko</p>
+                <h:form>
+                    <p:commandButton value="Wyloguj" action="#{templateController.logOut()}"/>
+                    <p:commandButton value="Moje konto" action="#"/>
+                </h:form> 
+            </div>
+            <article id="main_article">
+                <ui:insert name="content"></ui:insert>
+            </article>
+        </div>
+    </h:body>
+
+</html>

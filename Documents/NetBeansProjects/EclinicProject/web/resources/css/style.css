@@ -1,0 +1,233 @@
+body {
+    font-size: 12px;
+    background-color: #ddcdba;
+    font-family: Verdana, "Verdana CE",  Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+}
+
+h1 {
+    font-family: Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+    border-bottom: 1px solid #AFAFAF; 
+    font-size:  22px;
+    font-weight: bold;
+    margin: 0px;
+    padding: 0px;
+    color: black;
+    text-align: center;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+a:link, a:visited {
+    color: #045491;
+    font-weight : bold;
+    text-decoration: none;
+}
+
+a:link:hover, a:visited:hover  {
+    color: #045491;
+    font-weight : bold;
+}
+
+#menu_contener{
+    left: 0;
+    top: 0;
+    width: 300px;
+    float: left;
+}
+
+#main_contener {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    margin-left: 300px;
+    height: 98vh;
+    background-attachment: fixed;
+    background-image: url(/e-przychodnia/images/background.jpg);
+}
+
+#logo{
+    width:196px;
+    height:137px;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-left: 50px;
+    background-size: cover;
+    background-image: url(/e-przychodnia/images/clinic_logo.png);
+}
+
+article{
+    overflow-y: scroll; 
+}
+
+article p, h2{
+    margin-left: 50px;
+}
+
+#main_article {
+    background-color: rgba(250, 250, 250, 0.95);
+    border-radius: 10px;
+    height: 80%;
+    width: 95%;
+    margin-left: 2.5%;
+    margin-top: 100px;
+}
+
+#menu_text{
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+    height: 20px;
+    padding: 5px;
+    border-radius: 10px 0 0 10px;
+    background: linear-gradient(to right, white , #ddcdba);
+}
+
+#navigation .menu_element{
+    background: linear-gradient(to right, white , #ddcdba);
+    display: block;
+    font-size: 16px;
+    height: 30px;
+    padding: 5px;
+    color: black;
+    text-decoration: none;
+    text-align: center;
+    transition-property: all;
+    transition-duration: 1s;
+}
+
+#navigation .menu_element:hover{
+    text-decoration: none;
+    background: linear-gradient(to right, #e9ded2 , #ddcdba);
+    padding-left: 20px;
+}
+
+#horizontal_menu{
+    background-color: #ddcdba;
+    height: 30px;
+    top: 0;
+    right: 0;
+    font-size: 16px;
+}
+
+.first_menu_element, .second_menu_element, .third_menu_element{
+    transition-property: all;
+    transition-duration: 1s;
+    position: absolute;
+    color: black;
+    
+    top: 0;
+    padding-top: 10px;
+    height: 28px;
+}
+
+.first_menu_element{
+    right: 230px;
+}
+
+.second_menu_element{
+    right: 100px;
+}
+
+.third_menu_element{
+    right: 10px;
+}
+
+.first_menu_element:hover, .second_menu_element:hover, .third_menu_element:hover{
+    font-size: 17px;
+}
+
+#login_text{
+    float: left;
+    font-size: 13px;
+}
+
+#j_idt21{
+    background-color: white;
+}
+
+.ui-button-text{
+    background-color: white;
+    height: 20px;
+    font-size: 13px;
+}
+
+.ui-button-text:hover{
+    background-color: aliceblue;
+}
+
+.ui-tabs-nav{
+    overflow-y: scroll;
+}
+
+.ui-tabs{
+    height: 89%;
+}
+
+.ui-state-default.ui-corner-top, .ui-state-default.ui-corner-left{
+    font-size: 13px;
+    border-radius: 0;
+}
+
+.ui-selectonemenu-label.ui-inputfield.ui-corner-all{
+    font-size: 13px;
+    width: 100%;
+}
+
+.left_tableview ul.ui-widget-header.ui-corner-all{
+    height: 100%;
+    background-color: whitesmoke;
+}
+
+#my_profile_form .ui-button-text.ui-c{
+    width:30px;
+}
+
+.ui-datepicker-inline.ui-datepicker.ui-widget.ui-widget-content.ui-helper-clearfix.ui-corner-all{
+    width: 25%;
+    float: left;
+}
+
+.ui-state-default{
+    font-size: 18px;
+}
+
+.ui-datepicker-calendar span{
+    font-size: 15px;
+    margin-left: 65%;
+}
+
+.ui-datalist-header.ui-widget-header.ui-corner-top{
+    height: 23px;
+    width: 72.7%;
+    margin-left: 25.5%;
+}
+
+.ui-datalist-content.ui-widget-content{
+    width: 74%;
+    height: 88%;
+    margin-left: 25.5%;
+}
+
+.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-only{
+    float: right;
+}
+
+#registration_form ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-only{
+    padding-top: 50px;
+}
+
+.ui-widget-content{
+    border-color: white;
+}
+
+/*.ui-wizard-step-title.ui-state-default.ui-corner-all.ui-state-highlight{
+    font-size: 13px;
+}*/
+
+.ui-wizard-step-title.ui-state-default.ui-corner-all{
+    font-size: 13px;
+}
+

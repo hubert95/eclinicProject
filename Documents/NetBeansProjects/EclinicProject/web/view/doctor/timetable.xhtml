@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="../templates/doctorTemplate.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <ui:define name="head"></ui:define>
+
+    <ui:define name="menu">
+
+    </ui:define>
+
+    <ui:define name="content">
+        <h1>Terminarz</h1>
+        <script type="text/javascript">
+            PrimeFaces.locales['pl'] = { closeText: 'Zamknij', prevText: 'Poprzedni', nextText: 'Następny', monthNames: ['Styczeń','Luty','Marzec','Kwiecień','Maj','Czerwiec','Lipiec','Sierpień','Wrzesień','Październik','Listopad','Grudzień'], monthNamesShort: ['Sty','Lut','Mar','Kwi','Maj','Cze', 'Lip','Sie','Wrz','Paź','Lis','Gru'], dayNames: ['Niedziela','Poniedziałek','Wtorek','Środa','Czwartek','Piątek','Sobota'], dayNamesShort: ['Nie','Pon','Wt','Śr','Czw','Pt','So'], dayNamesMin: ['N','P','W','Ś','Cz','P','S'], weekHeader: 'Tydzień', firstDay: 1, isRTL: false, showMonthAfterYear: false, timeOnlyTitle: 'Tylko czas', timeText: 'Czas', hourText: 'Godzina', minuteText: 'Minuta', secondText: 'Sekunda', currentText: 'Teraz', ampm: false, month: 'Miesiąc', week: 'Tydzień', day: 'Dzień', allDayText : 'Cały dzień' };
+        </script>
+        <h:form>
+            <p:calendar id="inline" value="#{calendarView.date1}" mode="inline" locale="pl" navigator="true" yearRange="1900:2050"/>
+                <p:dataList value="#{dataListView.cars1}" var="car" type="ordered">
+                    <f:facet name="header">
+                        Plan dnia
+                    </f:facet>
+                    #{car.brand}, #{car.year}
+                </p:dataList>
+        </h:form>
+    </ui:define>
+    
+</ui:composition>
