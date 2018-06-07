@@ -2,7 +2,9 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                template="./templates/unloggedTemplate.xhtml">
+                template="./templates/unloggedTemplate.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="head"></ui:define>
 
@@ -25,13 +27,20 @@
         <br/>
         
         <h2>Menu w górnej części strony</h2>
-
+        
         <p>Jeśli posiadasz już konto możesz zalogować się do naszej platformy klikając przycisk Zaloguj się. Okienko, które się pojawi będzie wymagało wprowadzenia loginu (jest nim Twój numer PESEL) oraz hasła. 
             Platforma daje też możliwość zalogowania się za pomocą Facebook'a.</p>
 
-        <p>Jeśli nie posiadasz konta na naszej platformie - kliknij przycisk Zarejestruj się. Nasz serwis wyświetli formularz, w którym wprowadzisz swoje dane. Pamiętaj o poprawności wpisywanych danych.</p>
+        <br/>
         
-        <p>W przypadku jakichkolwiek problemów proszę skontaktować się z administratorem po adresem mailowym: hubert.januszek@wp.pl</p>
+        <h2>Proces rejestracji</h2>
+        <p>Jeśli nie posiadasz konta na naszej platformie - kliknij przycisk <h:link value="Zarejestruj się" outcome="${templateController.register()}" />. Nasz serwis wyświetli formularz, w którym wprowadzisz swoje dane. Wypełniaj dane zgodnie ze stanem faktycznym.
+           W przypadku, gdy wpisane dane będą nieprawidłowe pod względem zgodności z wartości oczekiwaną (na przykład wpiszesz liczbę w polu tekstowym), zostaniesz powiadomiony o tym stosownym komunikatem.
+           Komunikaty zawierają instrukcje co należy wpisać, aby proces rejestracji przebiegł pomyślnie.</p>
+        
+        <br/>
+        
+        <p>W przypadku jakichkolwiek problemów proszę skontaktować się z administratorem pod adresem mailowym: hubert.januszek@wp.pl</p>
     </ui:define>
 
 </ui:composition>
