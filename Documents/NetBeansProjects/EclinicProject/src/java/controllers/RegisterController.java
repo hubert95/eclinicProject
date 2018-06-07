@@ -21,6 +21,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
+import javax.faces.validator.ValidatorException;
 import javax.persistence.EntityManager;
 import org.primefaces.event.FlowEvent;
 
@@ -123,9 +124,9 @@ public class RegisterController implements Serializable {
             msg.setSeverity(FacesMessage.SEVERITY_ERROR);
             fc.addMessage(passwordId, msg);
             fc.renderResponse();
-
         }
     }
+
 
     public void save() throws ParseException {
         EntityManager em = DBManager.getManager().createEntityManager();

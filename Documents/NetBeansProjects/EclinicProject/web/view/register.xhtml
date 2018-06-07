@@ -95,7 +95,9 @@
                         <p:messages />
                         <h:panelGrid columns="2" columnClasses="label, value">
                             <h:outputText value="Email: *" />
-                            <p:inputText type="email" validatorMessage="Email jest nieprawidłowy." value="#{registerController.contact.email}" required="true" requiredMessage="Email jest wymagany." label="Email"/>
+                            <p:inputText value="#{registerController.contact.email}" required="true" requiredMessage="Email jest wymagany." label="Email">
+                                <f:validator validatorId="emailValidator"/>
+                            </p:inputText>
 
                             <h:outputText value="Numer telefonu: " />
                             <p:inputText value="#{registerController.contact.phoneNumber}"/>

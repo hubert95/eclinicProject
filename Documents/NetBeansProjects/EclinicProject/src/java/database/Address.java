@@ -36,19 +36,10 @@ public class Address implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
     private Long id;
-    @Basic(optional = false)
-    @Column(name = "locality")
     private String locality;
-    @Column(name = "street")
     private String street;
-    @Basic(optional = false)
-    @Column(name = "houseNumber")
     private String houseNumber;
-    @Basic(optional = false)
-    @Column(name = "postalCode")
     private String postalCode;
 
     public Address() {

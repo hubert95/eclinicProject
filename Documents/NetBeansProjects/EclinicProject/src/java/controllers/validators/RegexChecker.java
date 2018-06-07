@@ -20,7 +20,7 @@ public abstract class RegexChecker {
     final String houseNumberPattern = "^[0-9A-Za-z]";
     final String phoneNumberPattern = "^[1-9]{1}[0-9]{2}-[0-9]{3}-[0-9]{3}$";
     final String phoneNumberHomePattern = "^[1-9]{2}-[1-9]{1}[0-9]{2}-[0-9]{2}-[0-9]{2}$";
-    final String passwordPattern = "^(?=.*[0-9])(?=.*[a-zżźćńółęąś])(?=.*[A-ZŻŹĆĄŚĘŁÓŃ])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
+    final String passwordPattern = "^(?=.*[0-9])(?=.*[a-zżźćńółęąś])(?=.*[A-ZŻŹĆĄŚĘŁÓŃ])(?=.*[!@#$%^&*()_+-=])(?=\\S+$).{8,}$";
     final String peselPattern = "^\\d{11}$";
     
     public boolean check(String pattern, String checkString){

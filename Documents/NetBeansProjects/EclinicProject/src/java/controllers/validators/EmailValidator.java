@@ -14,16 +14,18 @@ import javax.faces.validator.ValidatorException;
 
 /**
  *
- * @author Hubert Januszek
+ * @author Admin
  */
-@FacesValidator("peselValidator")
-public class PeselValidator extends RegexChecker implements Validator {
+@FacesValidator("emailValidator")
+public class EmailValidator extends RegexChecker implements Validator {
 
     @Override
     public void validate(FacesContext fc, UIComponent uic, Object o) throws ValidatorException {
-        
-        if (!check(peselPattern, o.toString())) {
-            FacesMessage msg = new FacesMessage("Wprowadzony numer PESEL jest nieprawidłowy.", "");
+
+        if (!check(emailPattern, o.toString())) {
+            FacesMessage msg
+                    = new FacesMessage("Adres e-mail jest nieprawidłowy.",
+                            "");
             msg.setSeverity(FacesMessage.SEVERITY_ERROR);
 
             throw new ValidatorException(msg);
