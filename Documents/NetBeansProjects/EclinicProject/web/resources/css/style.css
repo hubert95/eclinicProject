@@ -234,3 +234,7 @@ article p, h2{
 .offer_list{
     margin-left: 50px;
 }
+
+.ui-outputlabel-rfi{
+    color: red;
+}

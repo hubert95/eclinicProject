@@ -5,15 +5,19 @@
  */
 package database;
 
+import controllers.converters.WeekDayConverter;
 import java.io.Serializable;
 import java.time.LocalTime;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.TableGenerator;
 
 /**
@@ -23,17 +27,23 @@ import javax.persistence.TableGenerator;
 
 @Entity
 @TableGenerator(name = "rangeofadmission")
+@NamedQueries({
+    @NamedQuery(name = "RangeOfAdmission.findAll", query = "SELECT r FROM RangeOfAdmission r")
+})
 public class RangeOfAdmission implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column
+    @Convert(converter = WeekDayConverter.class)
     @Enumerated(EnumType.STRING)
-    private WeekDay weekDay;
-    @Column(columnDefinition = "varchar(8)")
+    private WeekDay weekDay = WeekDay.MONDAY;
+    @Column(length = 255)
     private LocalTime beginOfRange;
-    @Column(columnDefinition = "varchar(8)")
+    @Column(length = 255)
     private LocalTime endOfRange;
+    private int lengthOfVisit;
 
     public Long getId() {
         return id;
@@ -66,7 +76,13 @@ public class RangeOfAdmission implements Serializable{
     public void setEndOfRange(LocalTime endOfRange) {
         this.endOfRange = endOfRange;
     }
-    
-    
-    
+
+    public int getLengthOfVisit() {
+        return lengthOfVisit;
+    }
+
+    public void setLengthOfVisit(int lengthOfVisit) {
+        this.lengthOfVisit = lengthOfVisit;
+    }
+
 }

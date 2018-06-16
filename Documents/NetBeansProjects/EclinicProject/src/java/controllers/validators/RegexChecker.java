@@ -22,6 +22,7 @@ public abstract class RegexChecker {
     final String phoneNumberHomePattern = "^[1-9]{2}-[1-9]{1}[0-9]{2}-[0-9]{2}-[0-9]{2}$";
     final String passwordPattern = "^(?=.*[0-9])(?=.*[a-zżźćńółęąś])(?=.*[A-ZŻŹĆĄŚĘŁÓŃ])(?=.*[!@#$%^&*()_+-=])(?=\\S+$).{8,}$";
     final String peselPattern = "^\\d{11}$";
+    final String hourPattern = "^[0-2]{1}[0-9]{1}:[0-5]{1}[0]{1}$";
     
     public boolean check(String pattern, String checkString){
         Pattern checkRegex;

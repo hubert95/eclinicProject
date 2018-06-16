@@ -7,7 +7,10 @@ package database;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.TableGenerator;
 
@@ -17,12 +20,16 @@ import javax.persistence.TableGenerator;
  */
 @Entity
 @TableGenerator(name = "specialist")
+@NamedQueries({
+    @NamedQuery(name = "Specialist.findAll", query = "SELECT s FROM Specialist s"),
+    @NamedQuery(name = "Specialist.findById", query = "SELECT s FROM Specialist s WHERE s.id = :id")
+})
 public class Specialist extends User implements Serializable {
 
     @OneToMany(mappedBy = "specialist")
     private List<Specialization> specializations;
     
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<RangeOfAdmission> rangeOfAdmissions;
 
     public List<Specialization> getSpecializations() {

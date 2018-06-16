@@ -4,7 +4,8 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 template="./../templates/recepcionistTemplate.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="head">
 
@@ -16,18 +17,51 @@
 
     <ui:define name="content">
         <h1>Doktorzy</h1>
-        <h:form id="form">
+        
+
             <p:tabView>
                 <p:tab title="Wszyscy lekarze">                    
                     <h:panelGrid columns="2" cellpadding="10">
-                        <h:outputText
-                            value="Lista lekarzy" />
+                        <h:outputText value="Lista lekarzy" />
                     </h:panelGrid>
+                    
                 </p:tab>
-                <p:tab title="Terminy wizyt" disabled="true">
-                    <h:panelGrid columns="2" cellpadding="10">
-                        <h:outputText value="Terminy wizyt" />
+                <p:tab title="Terminy wizyt">
+                    <h:form id="form">
+                    <p:messages id="message"/>
+                    <h:panelGrid columns="4" cellpadding="10">
+                        <p:outputLabel for="weekday" value="Dzień tygodnia: " />
+                        <p:selectOneListbox id="weekday" value="#{manageDoctorController.roa.weekDay}" style="width: 200px;">
+                            <f:selectItems value="#{manageDoctorController.weekdays}"/>
+                        </p:selectOneListbox>
+                        <p:outputLabel for="startRange" value="Godzina rozpoczęcia pracy: "/>
+                        <p:inputMask id="startRange" value="#{manageDoctorController.stringStartOfRange}" mask="99:90" validator="hourInputValidator" required="true" requiredMessage="Godzina rozpoczęcia pracy jest wymagana."/>
+
+                        <h:outputLabel for="stepSegment" value="Czas trwania wizyty: " />
+                        <p:spinner id="stepSegment" value="#{manageDoctorController.lenghtOfVisit}" stepFactor="10" min="10" max="60" size="18"/>
+
+                        <h:outputLabel for="numberOfVisits" value="Liczba wizyt: " />
+                        <p:spinner id="numberOfVisits" value="#{manageDoctorController.numberOfVisit}" min="1" max="50" size="18"/>
                     </h:panelGrid>
+                    <p:commandButton value="Zapisz" actionListener="#{manageDoctorController.save}" action="#{templateController.recepcionistDoctors}" update="message"/>
+                    <p:dataTable id="singleDT" style="margin-top:20px;" var="range" value="#{manageDoctorController.rangeOfAdmissions}" selectionMode="single" selection="#{manageDoctorController.selectedRange}" rowKey="#{range.id}">
+                        <p:column headerText="Dzień tygodnia">
+                            <h:outputText value="#{range.weekDay}" />
+                        </p:column>
+                        <p:column headerText="Początek zakresu">
+                            <h:outputText value="#{range.beginOfRange}" />
+                        </p:column>
+                        <p:column headerText="Koniec zakresu">
+                            <h:outputText value="#{range.endOfRange}" />
+                        </p:column>
+                        <p:column headerText="Długość wizyt w zakresie">
+                            <h:outputText value="#{range.lengthOfVisit}" />
+                        </p:column>
+<!--                        <f:facet name="footer">
+                            <p:commandButton process="singleDT" update=":form:carDetail" icon="ui-icon-search" value="View" oncomplete="PF('carDialog').show()" />
+                        </f:facet>-->
+                    </p:dataTable>
+                    </h:form>
                 </p:tab>
                 <p:tab title="Odwołanie wizyty" disabled="true">
                     <h:panelGrid columns="2" cellpadding="10">
@@ -35,7 +69,7 @@
                     </h:panelGrid>
                 </p:tab>
             </p:tabView>
-        </h:form>
+        
     </ui:define>
 
 </ui:composition>
