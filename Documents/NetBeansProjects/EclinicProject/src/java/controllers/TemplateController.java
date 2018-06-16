@@ -112,6 +112,26 @@ public class TemplateController implements Serializable {
     public String logOut() {
         return "/view/index?faces-redirect=true";
     }
+    
+    public String admin(){
+        return "admin?faces-redirect=true";
+    }
+    
+    public String doctorsAdmin(){
+        return "doctors_admin?faces-redirect=true";
+    }
+    
+    public String receptionistsAdmin(){
+        return "receptionists_admin?faces-redirect=true";
+    }
+    
+    public String patientsAdmin(){
+        return "patients_admin?faces-redirect=true";
+    }
+    
+    public String othersAdmin(){
+        return "others_admin?faces-redirect=true";
+    }
 
     public String loginController() {
 

@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="../templates/adminTemplate.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="head"></ui:define>
+    
+    <ui:define name="menu">
+  
+    </ui:define>
+
+    <ui:define name="content">
+        <h1>Zarządzanie kontami doktorów</h1>
+        
+        <h:form>
+            <p:selectOneMenu id="specialistType" value="" style="width:99%; margin-left: 0.5%;">
+                <f:selectItem itemLabel="Wszyscy" itemValue="Wszyscy" />
+                <f:selectItem itemLabel="Lekarz pierwszego kontaktu" itemValue="Lekarz pierwszego kontaktu" />
+                <f:selectItem itemLabel="Kardiolog" itemValue="Kardiolog" />
+                <f:selectItem itemLabel="Hematolog" itemValue="Hematolog" />
+                <f:selectItem itemLabel="Dermatolog" itemValue="Dermatolog" />
+            </p:selectOneMenu>
+            <p:tabView styleClass="left_tableview" orientation="left">
+
+                <p:tab title="Jan Kowalski">                    
+                    <h:panelGrid columns="2" cellpadding="10">
+                        <p:graphicImage name="images/tmpdoctor.jpg" />
+                        <h:outputText value="Jan Kowalski" />
+                        <h:outputText value="Specjalizacja: Kardiolog" /><br/>
+                        <h:outputText value="Godziny przyjęć" /><br/>
+                        <table cellpadding="5" cellspacing="7">
+                            <tr>
+                                <th>Poniedziałek</th>
+                                <th>Wtorek</th>
+                                <th>Środa</th>
+                                <th>Czwartek</th>
+                                <th>Piątek</th>
+                                <th>Sobota</th>
+                            </tr>
+                            
+                            <tr>
+                                <td>12:00 - 14:30</td>
+                                <td></td>
+                                <td>11:30 - 15:00</td>
+                                <td>8:30 - 12:00</td>
+                                <td></td>
+                                <td>12:00 - 15:30</td>
+                            </tr>
+                        </table>
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="Karol Nowak">
+                    <h:panelGrid columns="2" cellpadding="10">
+                        <p:graphicImage name="images/tmpdoctor.jpg" />
+                        <h:outputText value="Karol Nowak" />
+                        <h:outputText value="Specjalizacja: Laryngolog" /><br/>
+                        <h:outputText value="Godziny przyjęć" /><br/>
+                        <table cellpadding="5" cellspacing="7">
+                            <tr>
+                                <th>Poniedziałek</th>
+                                <th>Wtorek</th>
+                                <th>Środa</th>
+                                <th>Czwartek</th>
+                                <th>Piątek</th>
+                                <th>Sobota</th>
+                            </tr>
+
+                            <tr>
+                                <td>11:00 - 14:00</td>
+                                <td>11:00 - 15:00</td>
+                                <td></td>
+                                <td>8:00 - 11:00</td>
+                                <td></td>
+                                <td>12:00 - 15:30</td>
+                            </tr>
+                        </table>
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="Andrzej Tkaczyk">
+                    <h:panelGrid columns="2" cellpadding="10">
+                        <p:graphicImage name="images/tmpdoctor.jpg" />
+                        <h:outputText value="Andrzej Tkaczyk" />
+                        <h:outputText value="Specjalizacja: Hematolog" /><br/>
+                        <h:outputText value="Godziny przyjęć" /><br/>
+                        <table cellpadding="5" cellspacing="7">
+                            <tr>
+                                <th>Poniedziałek</th>
+                                <th>Wtorek</th>
+                                <th>Środa</th>
+                                <th>Czwartek</th>
+                                <th>Piątek</th>
+                                <th>Sobota</th>
+                            </tr>
+
+                            <tr>
+                                <td>11:00 - 14:00</td>
+                                <td>12:00 - 15:30</td>
+                                <td></td>
+                                <td>10:00 - 13:00</td>
+                                <td></td>
+                                <td>8:00 - 11:30</td>
+                            </tr>
+                        </table>
+                    </h:panelGrid>
+                </p:tab>
+            </p:tabView>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
+
