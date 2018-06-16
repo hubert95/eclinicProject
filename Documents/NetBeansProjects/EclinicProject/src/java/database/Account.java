@@ -36,8 +36,8 @@ public class Account implements Serializable {
     private String login;
     private String password;
     private Role role;
-
-    public Long getId() {
+    
+        public Long getId() {
         return id;
     }
 
@@ -68,7 +68,7 @@ public class Account implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-
+    
     @Override
     public int hashCode() {
         int hash = 0;

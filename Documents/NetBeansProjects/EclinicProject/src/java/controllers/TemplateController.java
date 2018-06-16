@@ -117,20 +117,20 @@ public class TemplateController implements Serializable {
         return "admin?faces-redirect=true";
     }
     
-    public String doctorsAdmin(){
-        return "doctors_admin?faces-redirect=true";
+    public String addEmployeesAdmin(){
+        return "add_employees_admin?faces-redirect=true";
     }
     
-    public String receptionistsAdmin(){
-        return "receptionists_admin?faces-redirect=true";
-    }
-    
-    public String patientsAdmin(){
-        return "patients_admin?faces-redirect=true";
+    public String manageEmployeesAdmin(){
+        return "manage_employees_admin?faces-redirect=true";
     }
     
     public String othersAdmin(){
         return "others_admin?faces-redirect=true";
+    }
+    
+    public String addUserAdmin(){
+        return "add_employees_admin?faces-redirect=true";
     }
 
     public String loginController() {
