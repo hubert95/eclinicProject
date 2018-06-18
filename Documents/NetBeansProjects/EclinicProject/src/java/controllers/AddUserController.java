@@ -8,17 +8,16 @@ package controllers;
 import database.Account;
 import database.Address;
 import database.Contact;
+import database.Patient;
 import database.Recepcionist;
 import database.Specialist;
-import java.io.Serializable;
 import java.text.ParseException;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.RequestScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import javax.faces.event.ComponentSystemEvent;
 import javax.persistence.EntityManager;
 
@@ -26,9 +25,9 @@ import javax.persistence.EntityManager;
  *
  * @author Maksymilian Jagodziński
  */
-@ManagedBean
-@ViewScoped
-public class AddUserController implements Serializable{
+@ManagedBean(name = "addUserController")
+@RequestScoped
+public class AddUserController{
     
     private Account account = new Account();
     private Specialist specialist = new Specialist();
@@ -41,6 +40,14 @@ public class AddUserController implements Serializable{
     private String passw2;
     
     private String typeOfEmployee;
+    
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
 
     public Account getAccount() {
         return account;
@@ -80,14 +87,6 @@ public class AddUserController implements Serializable{
 
     public void setContact(Contact contact) {
         this.contact = contact;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
     }
 
     public String getPassw1() {
@@ -144,8 +143,7 @@ public class AddUserController implements Serializable{
         }
     }
     
-    public void save() throws ParseException {
-        System.out.println("działa?");
+    public void save() throws ParseException{
         EntityManager em = DBManager.getManager().createEntityManager();
 
         if(typeOfEmployee.equals("Lekarz")){
@@ -159,6 +157,7 @@ public class AddUserController implements Serializable{
             account.setRole(Account.Role.RECEPCIONIST);
             recepcionist.setAccount(account);
         }
+        
         account.setPassword(passw1);
         account.setLogin(login);
 
@@ -185,5 +184,4 @@ public class AddUserController implements Serializable{
             }
         }
     }
-   
 }

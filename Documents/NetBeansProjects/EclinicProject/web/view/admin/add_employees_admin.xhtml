@@ -15,87 +15,79 @@
 
     <ui:define name="content">
         <h1>Stwórz nowe konto pracownika</h1>
+        <h:form id="add_new_employee">
+            <p:messages id="message"/>
+            <h:panelGrid>
+                <h:outputText value="Login: *" />
+                <p:inputText value="#{addUserController.login}" required="true" requiredMessage="Login jest wymagany."/>
 
-        <h:form id="add_emplyee_form">
-            <p:panel header="Dane pracownika">
-                <p:messages showDetail="true"/>
+                <f:event listener="#{addUserController.validatePassword}" type="postValidate" />
 
-                <h:panelGrid columns="2" columnClasses="label, value">
-                    <h:outputText value="Login: *" />
-                    <p:inputText value="#{addUserController.login}" required="true" requiredMessage="Numer PESEL jest wymagany.">
-                        <f:validator validatorId="peselValidator"/>
-                    </p:inputText>
+                <h:outputText value="Hasło: *" />
+                <p:inputText id="password" value="#{addUserController.passw1}" type="password" required="true" requiredMessage="Pole z hasłem jest wymagane.">
+                    <f:validator validatorId="passwordValidator"/>
+                </p:inputText>
 
+                <h:outputText value="Powtórz hasło: *" />
+                <p:inputText id="confirmPassword" value="#{addUserController.passw2}" type="password" required="true" requiredMessage="Pole z potwierdzeniem hasła jest wymagane."/>
 
-                    <f:event listener="#{addUserController.validatePassword}" type="postValidate" />
+                <p:outputLabel for="typeOfEmployee" value="Typ pracownika (domyślnie lekarz):" />
+                <p:selectOneMenu id="typeOfEmployee" value="#{addUserController.typeOfEmployee}" style="width:180px">
+                    <f:selectItem itemLabel="Wybierz jedno" itemValue="Lekarz" />
+                    <f:selectItem itemLabel="Lekarz" itemValue="Lekarz" />
+                    <f:selectItem itemLabel="Recepcjonista" itemValue="Recepcjonista" />
+                </p:selectOneMenu>
 
-                    <h:outputText value="Hasło: *" />
-                    <p:inputText id="password" value="#{addUserController.passw1}" type="password" required="true" requiredMessage="Pole z hasłem jest wymagane.">
-                        <f:validator validatorId="passwordValidator"/>
-                    </p:inputText>
+                <h:outputText value="Imię: *" />
+                <p:inputText value="#{addUserController.specialist.firstname}" required="true" requiredMessage="Pole Imię jest wymagane.">
+                    <f:validator validatorId="alphabetLetterValidator"/>
+                </p:inputText>
 
-                    <h:outputText value="Powtórz hasło: *" />
-                    <p:inputText id="confirmPassword" value="#{addUserController.passw2}" type="password" required="true" requiredMessage="Pole z potwierdzeniem hasła jest wymagane."/>
+                <h:outputText value="Nazwisko: *" />
+                <p:inputText value="#{addUserController.specialist.lastname}" required="true" requiredMessage="Pole Nazwisko jest wymagane.">
+                    <f:validator validatorId="alphabetLetterValidator"/>
+                </p:inputText>
 
-                    <p:outputLabel for="typeOfEmployee" value="Typ pracownika:" />
-                    <p:selectOneMenu id="typeOfEmployee" value="#{addUserController.typeOfEmployee}" style="width:180px">
-                        <f:selectItem itemLabel="Wybierz jedno" itemValue="" />
-                        <f:selectItem itemLabel="Lekarz" itemValue="Lekarz" />
-                        <f:selectItem itemLabel="Recepcjonista" itemValue="Recepcjonista" />
-                    </p:selectOneMenu>
+                <h:outputText value="Miejscowość: *" />
+                <p:inputText value="#{addUserController.address.locality}" >
+                    <f:validator validatorId="withoutSpecialCharsValidator" />
+                </p:inputText>
 
-                    <h:outputText value="Imię: *" />
-                    <p:inputText value="#{addUserController.specialist.firstname}" required="true" requiredMessage="Pole Imię jest wymagane.">
-                        <f:validator validatorId="alphabetLetterValidator"/>
-                    </p:inputText>
+                <h:outputText value="Ulica: *" />
+                <p:inputText value="#{addUserController.address.street}" >
+                    <f:validator validatorId="withoutSpecialCharsValidator" />
+                </p:inputText>
 
-                    <h:outputText value="Nazwisko: *" />
-                    <p:inputText value="#{addUserController.specialist.lastname}" required="true" requiredMessage="Pole Nazwisko jest wymagane.">
-                        <f:validator validatorId="alphabetLetterValidator"/>
-                    </p:inputText>
+                <h:outputText value="Numer domu: *" />
+                <p:inputText value="#{addUserController.address.houseNumber}" >
+                    <f:validator validatorId="houseNumberValidator" />
+                </p:inputText>
 
-                    <h:outputText value="Miejscowość: *" />
-                    <p:inputText value="#{addUserController.address.locality}" >
-                        <f:validator validatorId="withoutSpecialCharsValidator" />
-                    </p:inputText>
+                <h:outputText value="Kod pocztowy: *" />
+                <p:inputText value="#{addUserController.address.postalCode}" >
+                    <f:validator validatorId="postalCodeValidator" />
+                </p:inputText>
 
-                    <h:outputText value="Ulica: *" />
-                    <p:inputText value="#{addUserController.address.street}" >
-                        <f:validator validatorId="withoutSpecialCharsValidator" />
-                    </p:inputText>
+                <h:outputText value="Email: *" />
+                <p:inputText value="#{addUserController.contact.email}" required="true" requiredMessage="Email jest wymagany." label="Email">
+                    <f:validator validatorId="emailValidator"/>
+                </p:inputText>
 
-                    <h:outputText value="Numer domu: *" />
-                    <p:inputText value="#{addUserController.address.houseNumber}" >
-                        <f:validator validatorId="houseNumberValidator" />
-                    </p:inputText>
+                <h:outputText value="Numer telefonu: " />
+                <p:inputText value="#{addUserController.contact.phoneNumber}"/>
 
-                    <h:outputText value="Kod pocztowy: *" />
-                    <p:inputText value="#{addUserController.address.postalCode}" >
-                        <f:validator validatorId="postalCodeValidator" />
-                    </p:inputText>
+                <h:outputText value="Dodatkowe informacje: " />
+                <p:inputText value="#{addUserController.contact.info}"/>
 
-                    <h:outputText value="Email: *" />
-                    <p:inputText value="#{addUserController.contact.email}" required="true" requiredMessage="Email jest wymagany." label="Email">
-                        <f:validator validatorId="emailValidator"/>
-                    </p:inputText>
-
-                    <h:outputText value="Numer telefonu: " />
-                    <p:inputText value="#{addUserController.contact.phoneNumber}"/>
-
-                    <h:outputText value="Dodatkowe informacje: " />
-                    <p:inputText value="#{addUserController.contact.info}"/>
-
-                    <h:outputText value="Typ powiadomienia: " />
-                    <p:selectOneMenu id="typeOfNotify" value="#{addUserController.contact.typeOfNotifications}" style="width:180px">
-                        <f:selectItem itemLabel="brak" itemValue="brak" />
-                        <f:selectItem itemLabel="email" itemValue="email" />
-                        <f:selectItem itemLabel="SMS" itemValue="sms" itemDisabled="true" />
-                        <f:selectItem itemLabel="email i SMS" itemValue="emailsms" itemDisabled="true"/>
-                    </p:selectOneMenu>
-                </h:panelGrid>
-                <p:commandButton value="Zatwierdź" actionListener="#{addUserController.save}" action="#{templateController.addUserAdmin()}"/>
-            </p:panel>
-
+                <h:outputText value="Typ powiadomienia: " />
+                <p:selectOneMenu id="typeOfNotify" value="#{addUserController.contact.typeOfNotifications}" style="width:180px">
+                    <f:selectItem itemLabel="brak" itemValue="brak" />
+                    <f:selectItem itemLabel="email" itemValue="email" />
+                    <f:selectItem itemLabel="SMS" itemValue="sms" itemDisabled="true" />
+                    <f:selectItem itemLabel="email i SMS" itemValue="emailsms" itemDisabled="true"/>
+                </p:selectOneMenu>
+            </h:panelGrid>
+            <p:commandButton value="Zapisz" actionListener="#{addUserController.save}" action="#{templateController.addUserAdmin}" update="message"/>
         </h:form>
     </ui:define>
 
