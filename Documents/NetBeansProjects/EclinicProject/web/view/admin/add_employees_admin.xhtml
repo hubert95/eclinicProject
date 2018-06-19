@@ -15,8 +15,8 @@
 
     <ui:define name="content">
         <h1>Stwórz nowe konto pracownika</h1>
-        <h:form id="add_new_employee">
-            <p:messages id="message"/>
+        <h:form id="registration_form">
+            <p:messages id="message" showDetail="true"/>
             <h:panelGrid>
                 <h:outputText value="Login: *" />
                 <p:inputText value="#{addUserController.login}" required="true" requiredMessage="Login jest wymagany."/>
