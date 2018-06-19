@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -29,8 +30,12 @@ public class Specialist extends User implements Serializable {
     @OneToMany(mappedBy = "specialist")
     private List<Specialization> specializations;
     
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "specialist")
     private List<RangeOfAdmission> rangeOfAdmissions;
+    
+    @OneToMany(mappedBy = "specialist", cascade = CascadeType.PERSIST)
+    private List<Visit> visits;
+
 
     public List<Specialization> getSpecializations() {
         return specializations;
@@ -46,6 +51,14 @@ public class Specialist extends User implements Serializable {
 
     public void setRangeOfAdmissions(List<RangeOfAdmission> rangeOfAdmissions) {
         this.rangeOfAdmissions = rangeOfAdmissions;
+    }
+
+    public List<Visit> getVisits() {
+        return visits;
+    }
+
+    public void setVisits(List<Visit> visits) {
+        this.visits = visits;
     }
 
 

@@ -42,17 +42,17 @@ public class WeekDayConverter implements AttributeConverter<WeekDay, String> {
         switch (dbData) {
             case "Poniedziałek":
                 return WeekDay.MONDAY;
-                case "Wtorek":
+            case "Wtorek":
                 return WeekDay.TUESDAY;
-                case "Środa":
+            case "Środa":
                 return WeekDay.WEDNESDAY;
-                case "Czwarted":
+            case "Czwarted":
                 return WeekDay.THURSDAY;
-                case "Piątek":
+            case "Piątek":
                 return WeekDay.FRIDAY;
-                case "Sobota":
+            case "Sobota":
                 return WeekDay.SATURDAY;
-                case "Niedziela":
+            case "Niedziela":
                 return WeekDay.SUNDAY;
         }
         return null;

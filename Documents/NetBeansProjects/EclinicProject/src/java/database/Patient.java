@@ -10,8 +10,10 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
@@ -36,6 +38,9 @@ public class Patient extends User implements Serializable {
     private Date dateOfBirth;
     @Transient
     private final SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.PERSIST)
+    private List<Visit> visits;
+   
 
     public Patient() {
     }
@@ -60,4 +65,13 @@ public class Patient extends User implements Serializable {
     public String dateOfBirthToString(){
         return sdf.format(dateOfBirth);
     }
+
+    public List<Visit> getVisits() {
+        return visits;
+    }
+
+    public void setVisits(List<Visit> visits) {
+        this.visits = visits;
+    }
+    
 }

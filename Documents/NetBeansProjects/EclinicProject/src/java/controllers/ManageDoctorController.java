@@ -6,25 +6,36 @@
 package controllers;
 
 import database.RangeOfAdmission;
+import database.Recepcionist;
 import database.Specialist;
 import database.WeekDay;
+import java.io.IOException;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
+import javax.servlet.http.HttpServletRequest;
+import org.primefaces.event.TabChangeEvent;
 
 /**
  *
  * @author Admin
  */
 @ManagedBean(name = "manageDoctorController")
-@RequestScoped
+@ViewScoped
 public class ManageDoctorController {
 
+    private Specialist selectedSpecialist;
+    private RangeOfAdmission selectedRange;
+    
     private RangeOfAdmission roa = new RangeOfAdmission();
     private LocalTime startOfVR;
     private String stringStartOfRange;
@@ -32,10 +43,16 @@ public class ManageDoctorController {
     private int numberOfVisit = 1;
     private List<SelectItem> weekdaysItem;
     private List<RangeOfAdmission> rangeOfAdmissions;
-    private RangeOfAdmission selectedRange;
+    
+    private boolean tab;
+    private int tabNumber;
+    
 
     @PostConstruct
     public void init() {
+        this.tab = false;
+        this.tabNumber = 0;
+        
         weekdaysItem = new ArrayList<>();
 
         for (WeekDay wd : WeekDay.values()) {
@@ -117,6 +134,44 @@ public class ManageDoctorController {
         this.rangeOfAdmissions = rangeOfAdmissions;
     }
 
+    public Specialist getSelectedSpecialist() {
+        return selectedSpecialist;
+    }
+
+    public void setSelectedSpecialist(Specialist selectedSpecialist) {
+        this.selectedSpecialist = selectedSpecialist;
+    } 
+
+    public boolean isTab() {
+        return tab;
+    }
+
+    public int getTabNumber() {
+        return tabNumber;
+    }
+
+    public void setTabNumber(int tabNumber) {
+        this.tabNumber = tabNumber;
+    }
+    
+    public List<Specialist> getSpecialists(){
+        List<Specialist> specialists = null;
+        EntityManager em = DBManager.getManager().createEntityManager();
+        
+        try {          
+            em.getTransaction().begin();
+            specialists = (List<Specialist>) em.createNamedQuery("Specialist.findAll").getResultList();
+            em.getTransaction().commit();
+        } catch (Exception e) {
+        }
+        return specialists;
+    }
+    
+
+    public void confirmMessage() {
+        MessageController.addMessage("Usunięto wybrany przedział.", "Pomyśle wykonanie operacji.", FacesMessage.SEVERITY_INFO);
+    }
+
     public void tmp() {
         Specialist s = new Specialist();
         s.setFirstname("Andrzej");
@@ -130,7 +185,7 @@ public class ManageDoctorController {
     }
 
     public void save() {
-        tmp();
+//        tmp();
         EntityManager em = DBManager.getManager().createEntityManager();
 
         startOfVR = LocalTime.parse(stringStartOfRange);
@@ -138,18 +193,64 @@ public class ManageDoctorController {
 
         try {
             em.getTransaction().begin();
-            Specialist s = (Specialist) em.createNamedQuery("Specialist.findById").setParameter("id", 1L).getSingleResult();
-            List<RangeOfAdmission> roaList = s.getRangeOfAdmissions();
+            selectedSpecialist = (Specialist) em.createNamedQuery("Specialist.findById").setParameter("id", 1L).getSingleResult();
+            List<RangeOfAdmission> roaList = selectedSpecialist.getRangeOfAdmissions();
             roa.setBeginOfRange(startOfVR);
             roa.setLengthOfVisit(lenghtOfVisit);
             roa.setEndOfRange(endOfVisitRange);
+            roa.setSpecialist(selectedSpecialist);
             roaList.add(roa);
-            s.setRangeOfAdmissions(roaList);
+            selectedSpecialist.setRangeOfAdmissions(roaList);
             em.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             em.close();
         }
+    }
+
+    public void removeRange() {
+        EntityManager em = DBManager.getManager().createEntityManager();
+        List<RangeOfAdmission> roaTmp = null;
+        int i = 0;
+
+        if (selectedRange == null) {
+            MessageController.addMessage("Błąd.", "Nie zaznaczono żadnego przedziału. Proszę spróbować ponownie.", FacesMessage.SEVERITY_WARN);
+        } else {
+        }
+        try {
+            em.getTransaction().begin();
+            Specialist s = (Specialist) em.createNamedQuery("Specialist.findById").setParameter("id", 1L).getSingleResult();
+            roaTmp = s.getRangeOfAdmissions();
+            
+            if(roaTmp.size() == 0) return;
+            
+            for(RangeOfAdmission x : roaTmp){
+                if(x.getId() == selectedRange.getId())
+                    break;
+                i++;
+            }
+            s.getRangeOfAdmissions().remove(i);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally{
+            em.close();
+        }
+    }
+    
+    public void onTabChange() throws IOException{
+        if(selectedSpecialist == null){
+            MessageController.addMessage("ABC", "NIE", FacesMessage.SEVERITY_ERROR);
+            return;
+        }
+        
+//        tab = !tab;
+        
+        tabNumber = 1;
+        
+        System.out.println(selectedSpecialist.getFirstname());
+        ReloadController rc = new ReloadController();
+        System.out.println(tab);
     }
 }

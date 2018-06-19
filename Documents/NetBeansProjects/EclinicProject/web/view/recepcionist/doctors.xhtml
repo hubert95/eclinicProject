@@ -17,17 +17,63 @@
 
     <ui:define name="content">
         <h1>Doktorzy</h1>
-        
 
-            <p:tabView>
-                <p:tab title="Wszyscy lekarze">                    
-                    <h:panelGrid columns="2" cellpadding="10">
-                        <h:outputText value="Lista lekarzy" />
-                    </h:panelGrid>
-                    
-                </p:tab>
-                <p:tab title="Terminy wizyt">
-                    <h:form id="form">
+
+        <p:tabView id="doctorTabView" dynamic="true" activeIndex="#{manageDoctorController.tabNumber}">
+            <p:tab title="Wszyscy lekarze" disabled="#{manageDoctorController.tab}">                             
+                    <h:form>
+                        <p:dataTable id="specialistType" var="spec" value="#{manageDoctorController.specialists}" selectionMode="single" selection="#{manageDoctorController.selectedSpecialist}" rowKey="#{spec.id}">
+                            <p:messages id="message"/>
+                            <f:facet name="header">
+                                Lista lekarzy
+                            </f:facet>
+                            <p:column style="width:16px">
+                                <p:rowToggler />
+                            </p:column>
+                            <p:column headerText="Id">
+                                <h:outputText value="#{spec.id}" />
+                            </p:column>
+                            <p:column headerText="Imię">
+                                <h:outputText value="#{spec.firstname}" />
+                            </p:column>
+                            <p:column headerText="Nazwisko">
+                                <h:outputText value="#{spec.lastname}" />
+                            </p:column>
+
+                            <p:rowExpansion>
+                                <p:panelGrid  columns="2" columnClasses="label,value" style="width:300px">
+                                    <h:outputText value="E-mail" />
+                                    <h:outputText value="#{spec.contact.email}" />
+
+                                    <h:outputText value="Numer telefonu" />
+                                    <h:outputText value="#{spec.contact.phoneNumber}" />
+
+                                    <h:outputText value="Miejscowość" />
+                                    <h:outputText value="##{spec.address.locality}" />
+
+                                    <h:outputText value="Ulica" />
+                                    <h:outputText value="##{spec.address.street}" />
+
+                                    <h:outputText value="Numer domu" />
+                                    <h:outputText value="##{spec.address.houseNumber}" />
+
+                                    <h:outputText value="Kod pocztowy" />
+                                    <h:outputText value="##{spec.address.postalCode}" />
+
+                                    <h:outputText value="Login" />
+                                    <h:outputText value="#{spec.account.login}"/>
+
+                                </p:panelGrid>
+                            </p:rowExpansion>
+
+                            <f:facet name="footer">
+                                <p:commandButton process="specialistType" value="Zarządzaj" icon="ui-icon-trash" action="#{manageDoctorController.onTabChange}"/>
+                            </f:facet>
+                        </p:dataTable>
+                    </h:form>
+            </p:tab>
+            <p:tab title="Terminy wizyt" disabled="#{!(manageDoctorController.tab)}">
+                <h:form id="form">
                     <p:messages id="message"/>
                     <h:panelGrid columns="4" cellpadding="10">
                         <p:outputLabel for="weekday" value="Dzień tygodnia: " />
@@ -43,9 +89,17 @@
                         <h:outputLabel for="numberOfVisits" value="Liczba wizyt: " />
                         <p:spinner id="numberOfVisits" value="#{manageDoctorController.numberOfVisit}" min="1" max="50" size="18"/>
                     </h:panelGrid>
-                    <p:commandButton value="Zapisz" actionListener="#{manageDoctorController.save}" action="#{templateController.recepcionistDoctors}" update="message"/>
-                    <p:dataTable id="singleDT" style="margin-top:20px;" var="range" value="#{manageDoctorController.rangeOfAdmissions}" selectionMode="single" selection="#{manageDoctorController.selectedRange}" rowKey="#{range.id}">
-                        <p:column headerText="Dzień tygodnia">
+                    <p:commandButton value="Zapisz" actionListener="#{manageDoctorController.save}" action="#{templateController.recepcionistDoctors}" update="message" />
+                    <p:dataTable id="singleDT" style="margin-top:20px;" var="range" value="#{manageDoctorController.rangeOfAdmissions}" selectionMode="single" 
+                                 selection="#{manageDoctorController.selectedRange}" rowKey="#{range.id}" emptyMessage="Lekarz nie posiada w tym dniu żadnych obowiązków.">
+                        <p:messages id="message"/>
+                        <p:column headerText="Dzień tygodnia" filterBy="#{range.weekDay}" filterMatchMode="exact">
+                            <f:facet name="filter">
+                                <p:selectOneMenu onchange="PF('singleDT').filter()" >
+                                    <f:selectItem itemLabel="Wybierz dzień tygodnia" itemValue="#{null}" noSelectionOption="true"/>
+                                    <f:selectItems value="#{manageDoctorController.weekdays}" />
+                                </p:selectOneMenu>
+                            </f:facet>
                             <h:outputText value="#{range.weekDay}" />
                         </p:column>
                         <p:column headerText="Początek zakresu">
@@ -57,19 +111,27 @@
                         <p:column headerText="Długość wizyt w zakresie">
                             <h:outputText value="#{range.lengthOfVisit}" />
                         </p:column>
-<!--                        <f:facet name="footer">
-                            <p:commandButton process="singleDT" update=":form:carDetail" icon="ui-icon-search" value="View" oncomplete="PF('carDialog').show()" />
-                        </f:facet>-->
+
+                        <f:facet name="footer">
+                            <p:commandButton process="singleDT" value="Usuń" icon="ui-icon-trash" actionListener="#{manageDoctorController.confirmMessage}" action="#{manageDoctorController.removeRange}" update="message" >
+                                <p:confirm header="Potwierdzenie" message="Czy na pewno chcesz usunąć ten przedział?" icon="ui-icon-alert" />
+                            </p:commandButton>
+                        </f:facet>
                     </p:dataTable>
-                    </h:form>
-                </p:tab>
-                <p:tab title="Odwołanie wizyty" disabled="true">
-                    <h:panelGrid columns="2" cellpadding="10">
-                        <h:outputText value="Odwołanie wizyty" />
-                    </h:panelGrid>
-                </p:tab>
-            </p:tabView>
-        
+
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                        <p:commandButton value="Tak" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                        <p:commandButton value="Nie" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                    </p:confirmDialog>
+                </h:form>
+            </p:tab>
+            <p:tab title="Odwołanie wizyty" disabled="#{!(manageDoctorController.tab)}">
+                <h:panelGrid columns="2" cellpadding="10">
+                    <h:outputText value="Odwołanie wizyty" />
+                </h:panelGrid>
+            </p:tab>
+        </p:tabView>
+
     </ui:define>
 
 </ui:composition>

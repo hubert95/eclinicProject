@@ -8,6 +8,7 @@ package database;
 import controllers.converters.WeekDayConverter;
 import java.io.Serializable;
 import java.time.LocalTime;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
@@ -16,6 +17,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.TableGenerator;
@@ -28,7 +31,8 @@ import javax.persistence.TableGenerator;
 @Entity
 @TableGenerator(name = "rangeofadmission")
 @NamedQueries({
-    @NamedQuery(name = "RangeOfAdmission.findAll", query = "SELECT r FROM RangeOfAdmission r")
+    @NamedQuery(name = "RangeOfAdmission.findAll", query = "SELECT r FROM RangeOfAdmission r"),
+    @NamedQuery(name = "RangeOfAdmission.findById", query = "SELECT r FROM RangeOfAdmission r WHERE r.id = :id")
 })
 public class RangeOfAdmission implements Serializable{
 
@@ -44,7 +48,10 @@ public class RangeOfAdmission implements Serializable{
     @Column(length = 255)
     private LocalTime endOfRange;
     private int lengthOfVisit;
-
+    @ManyToOne
+    private Specialist specialist;
+    
+    
     public Long getId() {
         return id;
     }
@@ -85,4 +92,13 @@ public class RangeOfAdmission implements Serializable{
         this.lengthOfVisit = lengthOfVisit;
     }
 
+    public Specialist getSpecialist() {
+        return specialist;
+    }
+
+    public void setSpecialist(Specialist specialist) {
+        this.specialist = specialist;
+    }
+
+    
 }

@@ -15,12 +15,13 @@
         <class>database.User</class>
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <properties>
-            <!--      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/eclinic?zeroDateTimeBehavior=convertToNull"/>
-            <property name="javax.persistence.jdbc.password" value=""/>-->
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://77.55.238.44:3306/eclinic"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/eclinic?zeroDateTimeBehavior=convertToNull"/>
+            <property name="javax.persistence.jdbc.password" value=""/>
+<!--            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://77.55.238.44:3306/eclinic"/>
+            <property name="javax.persistence.jdbc.password" value="Bazisz123!"/>-->
             <property name="javax.persistence.jdbc.user" value="root"/>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-            <property name="javax.persistence.jdbc.password" value="Bazisz123!"/>
+            
         </properties>
     </persistence-unit>
 </persistence>
