@@ -216,7 +216,7 @@ public class ManageDoctorController {
             em.getTransaction().begin();
             spec = (Specialist) em.createNamedQuery("Specialist.findById").setParameter("id", selectedSpecId).getSingleResult();
             roaList = spec.getRangeOfAdmissions();
-            if (!TimeController.checkTimesInRanges(roaList, startOfVR, endOfVisitRange)) {
+            if (!TimeController.checkTimesInRanges(roaList, startOfVR, endOfVisitRange, selectedDay)) {
                 MessageController.addMessage("Uwaga.", "Podane przez Ciebie czasy nachodzą się. Sprawdź harmonogram pracy w tym dniu.", FacesMessage.SEVERITY_WARN);
                 return;
             }

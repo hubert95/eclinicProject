@@ -6,6 +6,7 @@
 package controllers;
 
 import database.RangeOfAdmission;
+import database.WeekDay;
 import java.time.LocalTime;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -24,7 +25,7 @@ public class TimeController {
      */
     public TimeController() {
     }
-    
+
     public static boolean isInRange(LocalTime start, LocalTime end, LocalTime time) {
         if (start.isAfter(end)) {
             return !time.isBefore(start) || !time.isAfter(end);
@@ -32,17 +33,20 @@ public class TimeController {
             return !time.isBefore(start) && !time.isAfter(end);
         }
     }
-    
-    public static boolean checkTimesInRanges(List<RangeOfAdmission> roa, LocalTime timeBegin, LocalTime timeEnd){
-        for(RangeOfAdmission r : roa){     
-            if(r.getEndOfRange().equals(timeBegin))
+
+    public static boolean checkTimesInRanges(List<RangeOfAdmission> roa, LocalTime timeBegin, LocalTime timeEnd, WeekDay wd) {
+        for (RangeOfAdmission r : roa) {
+            if (r.getWeekDay().equals(wd)) {
+                if (r.getEndOfRange().equals(timeBegin)) {
                     return true;
-            else{
-                if(isInRange(r.getBeginOfRange(), r.getEndOfRange(), timeBegin) || isInRange(r.getBeginOfRange(), r.getEndOfRange(), timeEnd))
-                return false;
+                } else {
+                    if (isInRange(r.getBeginOfRange(), r.getEndOfRange(), timeBegin) || isInRange(r.getBeginOfRange(), r.getEndOfRange(), timeEnd)) {
+                        return false;
+                    }
+                }
             }
         }
         return true;
     }
-    
+
 }
