@@ -34,9 +34,13 @@ public class TimeController {
     }
     
     public static boolean checkTimesInRanges(List<RangeOfAdmission> roa, LocalTime timeBegin, LocalTime timeEnd){
-        for(RangeOfAdmission r : roa){
-            if(isInRange(r.getBeginOfRange(), r.getEndOfRange(), timeBegin) || isInRange(r.getBeginOfRange(), r.getEndOfRange(), timeEnd))
+        for(RangeOfAdmission r : roa){     
+            if(r.getEndOfRange().equals(timeBegin))
+                    return true;
+            else{
+                if(isInRange(r.getBeginOfRange(), r.getEndOfRange(), timeBegin) || isInRange(r.getBeginOfRange(), r.getEndOfRange(), timeEnd))
                 return false;
+            }
         }
         return true;
     }
