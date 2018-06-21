@@ -132,6 +132,10 @@ public class TemplateController implements Serializable {
     public String addUserAdmin(){
         return "add_employees_admin?faces-redirect=true";
     }
+    
+    public String recepcionistGenerateDates(){
+        return "generate_dates?faces-redirect=true";
+    }
 
     public String loginController() {
 

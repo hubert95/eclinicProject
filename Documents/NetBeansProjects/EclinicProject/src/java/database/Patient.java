@@ -29,7 +29,7 @@ import org.hibernate.annotations.NamedQuery;
 @Entity
 @TableGenerator(name = "patient")
 @NamedQueries({
-    @NamedQuery(name = "Patient.findAll", query = "SELECT p from Patient p"),
+    @NamedQuery(name = "Patient.findAll", query = "SELECT p from Patient p")
 })
 public class Patient extends User implements Serializable {
     

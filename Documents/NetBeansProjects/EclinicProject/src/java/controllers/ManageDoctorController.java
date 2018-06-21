@@ -6,7 +6,6 @@
 package controllers;
 
 import database.RangeOfAdmission;
-import database.Recepcionist;
 import database.Specialist;
 import database.WeekDay;
 import java.io.IOException;
@@ -16,15 +15,11 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
 import javax.persistence.Transient;
-import javax.servlet.http.HttpServletRequest;
-import org.primefaces.event.TabChangeEvent;
+import java.io.Serializable;
 
 /**
  *
@@ -32,7 +27,7 @@ import org.primefaces.event.TabChangeEvent;
  */
 @ManagedBean(name = "manageDoctorController")
 @ViewScoped
-public class ManageDoctorController {
+public class ManageDoctorController implements Serializable{
 
     private Specialist selectedSpecialist;
     private long selectedSpecId;

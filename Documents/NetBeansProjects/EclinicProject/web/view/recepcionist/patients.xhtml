@@ -4,7 +4,8 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 template="../templates/recepcionistTemplate.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="head">
     </ui:define>
@@ -13,48 +14,95 @@
     </ui:define>
 
     <ui:define name="content">
-        <h1>Pacjenci</h1>
-        <h:form id="form">
-            <p:tabView>
-                <p:tab title="Wszyscy pacjenci">                    
-                    <h:panelGrid columns="2" cellpadding="10">
-                        <h:outputText
-                            value="Lista pacjentów" />
-                    </h:panelGrid>
-                </p:tab>
-                <p:tab title="Rezerwacja wizyty" disabled="true">                    
-                    <h:panelGrid columns="2" cellpadding="10">
-                        <h:outputText
-                            value="Rezerwacja wizyty" />
-                    </h:panelGrid>
-                </p:tab>
-                <p:tab title="Odwołanie wizyty" disabled="true">
-                    <h:panelGrid columns="2" cellpadding="10">
-                        <h:outputText value="Odwołanie wizyty" />
-                    </h:panelGrid>
-                </p:tab>
-                <p:tab title="Zwrot pieniędzy">
-                    <h:panelGrid columns="2" cellpadding="10">
-                        <h:outputText value="Zwrot pieniędzy" />
-                    </h:panelGrid>
-                </p:tab>
-                <p:tab title="Zablokowanie konta" disabled="true">
-                    <h:panelGrid columns="2" cellpadding="10">
-                        <h:outputText value="Zablokowanie konta" />
-                    </h:panelGrid>
-                </p:tab>
-                <p:tab title="Weryfikacja konta" disabled="true">
-                    <h:panelGrid columns="2" cellpadding="10">
-                        <h:outputText value="Weryfikacja konta" />
-                    </h:panelGrid>
-                </p:tab>
-                <p:tab title="Nowy pacjent">
-                    <h:panelGrid columns="2" cellpadding="10">
-                        <h:outputText value="Nowy pacjent" />
-                    </h:panelGrid>
-                </p:tab>
-            </p:tabView>
+        <h1>Doktorzy</h1>
+        <p:tabView id="patientTabView" dynamic="true" activeIndex="#{managePatientController.tabNumber}">
+            <p:tab title="Wszyscy pacjenci" disabled="#{managePatientController.tab}">                             
+                <h:form>
+                    <p:growl id="growl" showDetail="true"/>
+                    <p:dataTable id="patientType" var="patient" value="#{managePatientController.patients}" selectionMode="single" selection="#{managePatientController.selectedPatient}" rowKey="#{patient.id}" emptyMessage="Brak pacientów w bazie.">
+                        <p:messages id="message"/>
+                        <f:facet name="header">
+                            Lista lekarzy
+                        </f:facet>
+                        <p:column style="width:16px">
+                            <p:rowToggler />
+                        </p:column>
+                        <p:column headerText="Id">
+                            <h:outputText value="#{patient.id}" />
+                        </p:column>
+                        <p:column headerText="Imię">
+                            <h:outputText value="#{patient.firstname}" />
+                        </p:column>
+                        <p:column headerText="Nazwisko">
+                            <h:outputText value="#{patient.lastname}" />
+                        </p:column>
+                        <p:column headerText="PESEL">
+                            <h:outputText value="#{patient.pesel}" />
+                        </p:column>
+
+                        <p:rowExpansion>
+                            <p:panelGrid  columns="2" columnClasses="label,value" style="width:300px">
+                                <h:outputText value="Data urodzenia" />
+                                <h:outputText value="#{patient.dateOfBirth}" />
+
+                                <h:outputText value="E-mail" />
+                                <h:outputText value="#{patient.contact.email}" />
+
+                                <h:outputText value="Numer telefonu" />
+                                <h:outputText value="#{patient.contact.phoneNumber}" />
+
+                                <h:outputText value="Miejscowość" />
+                                <h:outputText value="#{patient.address.locality}" />
+
+                                <h:outputText value="Ulica" />
+                                <h:outputText value="#{patient.address.street}" />
+
+                                <h:outputText value="Numer domu" />
+                                <h:outputText value="#{patient.address.houseNumber}" />
+
+                                <h:outputText value="Kod pocztowy" />
+                                <h:outputText value="#{patient.address.postalCode}" />
+
+                            </p:panelGrid>
+                        </p:rowExpansion>
+
+                        <f:facet name="footer">
+                            <p:commandButton process="patientType" value="Zarządzaj" icon="ui-icon-star" update=":patientTabView :manageForm:manageButton" action="#{managePatientController.onTabChange}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </h:form>
+            </p:tab>
+            <p:tab title="Rezerwacja wizyty" disabled="#{!managePatientController.tab}">                    
+                <h:panelGrid columns="2" cellpadding="10">
+                    <h:outputText
+                        value="Rezerwacja wizyty" />
+                </h:panelGrid>
+            </p:tab>
+            <p:tab title="Odwołanie wizyty" disabled="#{!managePatientController.tab}">
+                <h:panelGrid columns="2" cellpadding="10">
+                    <h:outputText value="Odwołanie wizyty" />
+                </h:panelGrid>
+            </p:tab>
+            <p:tab title="Zarządzanie kontem" disabled="#{!managePatientController.tab}">
+                <h:panelGrid columns="2" cellpadding="10">
+                    <h:outputText value="Zablokowanie konta" />
+                </h:panelGrid>
+            </p:tab>
+            <p:tab title="Zwrot pieniędzy" disabled="#{managePatientController.tab}">
+                <h:panelGrid columns="2" cellpadding="10">
+                    <h:outputText value="Zwrot pieniędzy" />
+                </h:panelGrid>
+            </p:tab>
+            <p:tab title="Nowy pacjent" disabled="#{managePatientController.tab}">
+                <h:panelGrid columns="2" cellpadding="10">
+                    <h:outputText value="Nowy pacjent" />
+                </h:panelGrid>
+            </p:tab>
+        </p:tabView>
+        <h:form id="manageForm">
+            <p:commandButton id="manageButton" disabled="#{!managePatientController.tab}" value="Zakończ zarzadzanie" update="manageButton :patientTabView" action="#{managePatientController.onTabChange}"/>
         </h:form>
+
     </ui:define>
 
 </ui:composition>

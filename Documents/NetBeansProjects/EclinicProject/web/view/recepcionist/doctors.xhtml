@@ -48,16 +48,16 @@
                                     <h:outputText value="#{spec.contact.phoneNumber}" />
 
                                     <h:outputText value="Miejscowość" />
-                                    <h:outputText value="##{spec.address.locality}" />
+                                    <h:outputText value="#{spec.address.locality}" />
 
                                     <h:outputText value="Ulica" />
-                                    <h:outputText value="##{spec.address.street}" />
+                                    <h:outputText value="#{spec.address.street}" />
 
                                     <h:outputText value="Numer domu" />
-                                    <h:outputText value="##{spec.address.houseNumber}" />
+                                    <h:outputText value="#{spec.address.houseNumber}" />
 
                                     <h:outputText value="Kod pocztowy" />
-                                    <h:outputText value="##{spec.address.postalCode}" />
+                                    <h:outputText value="#{spec.address.postalCode}" />
 
                                     <h:outputText value="Login" />
                                     <h:outputText value="#{spec.account.login}"/>
@@ -65,8 +65,7 @@
                                 </p:panelGrid>
                             </p:rowExpansion>
 
-                            <f:facet name="footer">
-                                
+                            <f:facet name="footer">  
                                 <p:commandButton process="specialistType" value="Zarządzaj" icon="ui-icon-star" update=":doctorTabView :manageForm:manageButton" action="#{manageDoctorController.onTabChange}"/>
                             </f:facet>
                         </p:dataTable>

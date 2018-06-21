@@ -13,6 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.TableGenerator;
 
@@ -34,6 +35,9 @@ public class Visit implements Serializable{
     Patient patient;
     @ManyToOne
     Specialist specialist;
+    @ManyToOne
+    @JoinColumn(name = "stateId")
+    private VisitState state = new UnreservedVisitState();
 
     public long getId() {
         return id;
