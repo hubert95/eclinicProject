@@ -32,7 +32,8 @@ import javax.persistence.TableGenerator;
 @TableGenerator(name = "rangeofadmission")
 @NamedQueries({
     @NamedQuery(name = "RangeOfAdmission.findAll", query = "SELECT r FROM RangeOfAdmission r"),
-    @NamedQuery(name = "RangeOfAdmission.findById", query = "SELECT r FROM RangeOfAdmission r WHERE r.id = :id")
+    @NamedQuery(name = "RangeOfAdmission.findById", query = "SELECT r FROM RangeOfAdmission r WHERE r.id = :id"),
+    @NamedQuery(name = "RangeOfAdmission.findBySpecialistAndWeekday", query = "SELECT r FROM RangeOfAdmission r WHERE r.specialist.id = :id AND r.weekDay = :day")
 })
 public class RangeOfAdmission implements Serializable{
 

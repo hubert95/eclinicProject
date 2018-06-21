@@ -33,7 +33,7 @@ public class Specialist extends User implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "specialist")
     private List<RangeOfAdmission> rangeOfAdmissions;
     
-    @OneToMany(mappedBy = "specialist", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "specialist", cascade = CascadeType.ALL)
     private List<Visit> visits;
 
 

@@ -17,12 +17,11 @@
 
     <ui:define name="content">
         <h1>Doktorzy</h1>
-
-
         <p:tabView id="doctorTabView" dynamic="true" activeIndex="#{manageDoctorController.tabNumber}">
             <p:tab title="Wszyscy lekarze" disabled="#{manageDoctorController.tab}">                             
                     <h:form>
-                        <p:dataTable id="specialistType" var="spec" value="#{manageDoctorController.specialists}" selectionMode="single" selection="#{manageDoctorController.selectedSpecialist}" rowKey="#{spec.id}">
+                        <p:growl id="growl" showDetail="true"/>
+                        <p:dataTable id="specialistType" var="spec" value="#{manageDoctorController.specialists}" selectionMode="single" selection="#{manageDoctorController.selectedSpecialist}" rowKey="#{spec.id}" emptyMessage="Brak specjalistów w bazie.">
                             <p:messages id="message"/>
                             <f:facet name="header">
                                 Lista lekarzy
@@ -67,18 +66,20 @@
                             </p:rowExpansion>
 
                             <f:facet name="footer">
-                                <p:commandButton process="specialistType" value="Zarządzaj" icon="ui-icon-trash" action="#{manageDoctorController.onTabChange}"/>
+                                
+                                <p:commandButton process="specialistType" value="Zarządzaj" icon="ui-icon-star" update=":doctorTabView :manageForm:manageButton" action="#{manageDoctorController.onTabChange}"/>
                             </f:facet>
                         </p:dataTable>
                     </h:form>
             </p:tab>
             <p:tab title="Terminy wizyt" disabled="#{!(manageDoctorController.tab)}">
                 <h:form id="form">
-                    <p:messages id="message"/>
+                    <p:messages id="message" showDetail="true"/>
                     <h:panelGrid columns="4" cellpadding="10">
                         <p:outputLabel for="weekday" value="Dzień tygodnia: " />
-                        <p:selectOneListbox id="weekday" value="#{manageDoctorController.roa.weekDay}" style="width: 200px;">
+                        <p:selectOneListbox id="weekday" value="#{manageDoctorController.selectedDay}" style="width: 200px;" >
                             <f:selectItems value="#{manageDoctorController.weekdays}"/>
+                            <p:ajax update="singleDT"/>
                         </p:selectOneListbox>
                         <p:outputLabel for="startRange" value="Godzina rozpoczęcia pracy: "/>
                         <p:inputMask id="startRange" value="#{manageDoctorController.stringStartOfRange}" mask="99:90" validator="hourInputValidator" required="true" requiredMessage="Godzina rozpoczęcia pracy jest wymagana."/>
@@ -89,19 +90,10 @@
                         <h:outputLabel for="numberOfVisits" value="Liczba wizyt: " />
                         <p:spinner id="numberOfVisits" value="#{manageDoctorController.numberOfVisit}" min="1" max="50" size="18"/>
                     </h:panelGrid>
-                    <p:commandButton value="Zapisz" actionListener="#{manageDoctorController.save}" action="#{templateController.recepcionistDoctors}" update="message" />
+                    <p:commandButton value="Zapisz" action="#{manageDoctorController.save}" update="message singleDT" />
                     <p:dataTable id="singleDT" style="margin-top:20px;" var="range" value="#{manageDoctorController.rangeOfAdmissions}" selectionMode="single" 
                                  selection="#{manageDoctorController.selectedRange}" rowKey="#{range.id}" emptyMessage="Lekarz nie posiada w tym dniu żadnych obowiązków.">
                         <p:messages id="message"/>
-                        <p:column headerText="Dzień tygodnia" filterBy="#{range.weekDay}" filterMatchMode="exact">
-                            <f:facet name="filter">
-                                <p:selectOneMenu onchange="PF('singleDT').filter()" >
-                                    <f:selectItem itemLabel="Wybierz dzień tygodnia" itemValue="#{null}" noSelectionOption="true"/>
-                                    <f:selectItems value="#{manageDoctorController.weekdays}" />
-                                </p:selectOneMenu>
-                            </f:facet>
-                            <h:outputText value="#{range.weekDay}" />
-                        </p:column>
                         <p:column headerText="Początek zakresu">
                             <h:outputText value="#{range.beginOfRange}" />
                         </p:column>
@@ -113,14 +105,14 @@
                         </p:column>
 
                         <f:facet name="footer">
-                            <p:commandButton process="singleDT" value="Usuń" icon="ui-icon-trash" actionListener="#{manageDoctorController.confirmMessage}" action="#{manageDoctorController.removeRange}" update="message" >
+                            <p:commandButton process="singleDT" value="Usuń" icon="ui-icon-trash" actionListener="#{manageDoctorController.confirmMessage}" action="#{manageDoctorController.removeRange}" update="message singleDT" >
                                 <p:confirm header="Potwierdzenie" message="Czy na pewno chcesz usunąć ten przedział?" icon="ui-icon-alert" />
                             </p:commandButton>
                         </f:facet>
                     </p:dataTable>
 
                     <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                        <p:commandButton value="Tak" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                        <p:commandButton value="Tak" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update="singleDT"/>
                         <p:commandButton value="Nie" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                     </p:confirmDialog>
                 </h:form>
@@ -131,6 +123,9 @@
                 </h:panelGrid>
             </p:tab>
         </p:tabView>
+        <h:form id="manageForm">
+            <p:commandButton id="manageButton" disabled="#{!manageDoctorController.tab}" value="Zakończ zarzadzanie" update="manageButton :doctorTabView" action="#{manageDoctorController.onTabChange}"/>
+        </h:form>
 
     </ui:define>
 
