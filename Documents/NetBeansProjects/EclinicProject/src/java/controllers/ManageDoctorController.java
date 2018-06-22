@@ -199,7 +199,6 @@ public class ManageDoctorController implements Serializable{
         em.close();
     }
 
-    //Zniwelować odstępy między zakresami...
     public void save() {
         EntityManager em = DBManager.getManager().createEntityManager();
         Specialist spec = null;

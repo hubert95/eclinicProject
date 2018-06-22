@@ -38,8 +38,8 @@ public class Patient extends User implements Serializable {
     private Date dateOfBirth;
     @Transient
     private final SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.PERSIST)
-    private List<Visit> visits;
+    @OneToMany(mappedBy = "patient", orphanRemoval = true, cascade = CascadeType.PERSIST)
+    private List<PatientCard> patientCards;
    
 
     public Patient() {
@@ -66,12 +66,13 @@ public class Patient extends User implements Serializable {
         return sdf.format(dateOfBirth);
     }
 
-    public List<Visit> getVisits() {
-        return visits;
+    public List<PatientCard> getPatientCards() {
+        return patientCards;
     }
 
-    public void setVisits(List<Visit> visits) {
-        this.visits = visits;
+    public void setPatientCards(List<PatientCard> patientCards) {
+        this.patientCards = patientCards;
     }
+
     
 }

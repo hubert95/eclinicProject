@@ -3,6 +3,7 @@
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="../templates/recepcionistTemplate.xhtml"
                 xmlns:p="http://primefaces.org/ui"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:h="http://xmlns.jcp.org/jsf/html">
 
@@ -14,9 +15,18 @@
 
     <ui:define name="content">
         <h1>Generator terminów</h1>
+        <h:form>
             <p:dataTable id="multipleDT" var="spec" value="#{generateDatesController.specialists}" selectionMode="multiple" selection="#{generateDatesController.selectedSpecialists}" rowKey="#{spec.id}">
                 <f:facet name="header">
-                    Specjaliści
+                    <h:outputLabel for="generatorRange" value="Generuj na cały: " />
+                    <h:selectOneMenu id="generatorRange" value="#{generateDatesController.selectedGeneratorRange}">
+                        <f:selectItem itemValue="tydzień"/>
+                        <f:selectItem itemValue="miesiąc" itemDisabled="true"/>
+                        <f:selectItem itemValue="kwartał" itemDisabled="true"/>
+                        <f:selectItem itemValue="rok" itemDisabled="true"/>
+                        <p:ajax update="generatorRange" />
+                    </h:selectOneMenu>
+
                 </f:facet>
                 <p:column headerText="Id">
                     <h:outputText value="#{spec.id}" />
@@ -28,15 +38,16 @@
                     <h:outputText value="#{spec.lastname}" />
                 </p:column>
                 <f:facet name="footer">
-                    <p:commandButton process="multipleDT" value="Generuj wolne terminy" icon="ui-icon-disk" actionListener="#{generateDatesController.confirmMessage}" action="#{generateDatesController.generate}">
-                        <p:confirm header="Potwierdzenie" message="Czy na pewno chcesz wygenerować wolne terminy dla zaznaczonych specjalistów?" icon="ui-icon-alert" />
+                    <p:commandButton process="multipleDT" value="Generuj wolne terminy" icon="ui-icon-disk" action="#{generateDatesController.generate}">
+                        <p:confirm header="Potwierdzenie" message="Czy na pewno chcesz wygenerować wolne terminy dla zaznaczonych specjalistów?" icon="ui-icon-alert"/>
                     </p:commandButton>
                 </f:facet>
             </p:dataTable>
-        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-            <p:commandButton value="Tak" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
-            <p:commandButton value="Nie" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-        </p:confirmDialog>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Tak" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="Nie" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+        </h:form>
     </ui:define>
 
 </ui:composition>

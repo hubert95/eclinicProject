@@ -5,9 +5,11 @@
     <class>database.Account</class>
     <class>database.Address</class>
     <class>database.Admin</class>
+    <class>database.Clinic</class>
     <class>database.Contact</class>
     <class>database.Drug</class>
     <class>database.Patient</class>
+    <class>database.PatientCard</class>
     <class>database.Person</class>
     <class>database.RangeOfAdmission</class>
     <class>database.Recepcionist</class>
@@ -16,7 +18,6 @@
     <class>database.Specialization</class>
     <class>database.User</class>
     <class>database.Visit</class>
-    <class>database.VisitMade</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/eclinic?zeroDateTimeBehavior=convertToNull"/>

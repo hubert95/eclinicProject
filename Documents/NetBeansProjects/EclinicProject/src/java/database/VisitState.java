@@ -5,38 +5,10 @@
  */
 package database;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.TableGenerator;
-
 /**
  *
- * @author Hubert Januszek
+ * @author Admin
  */
-@Entity
-@TableGenerator(name = "visitstate")
-public abstract class VisitState {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "stateId")
-    private Long id;
-    
-    public abstract void reserveTheVisit();
-    public abstract void withdrawReservation();
-    public abstract void payPerVisit();
-    public abstract void cancelTheVisitByPatient();
-    public abstract void cancelTheVisitByClinic();
-    public abstract void finishTheVisit();
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+public enum VisitState {
+    UNRESERVED, UNPAYED, PAYED, CANCELEDBYCLINIC, CANCELEDBYPATIENT, FINISHED
 }

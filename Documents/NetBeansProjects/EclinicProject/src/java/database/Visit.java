@@ -5,17 +5,26 @@
  */
 package database;
 
+import controllers.converters.VisitStateConverter;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.TableGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -35,10 +44,19 @@ public class Visit implements Serializable{
     Patient patient;
     @ManyToOne
     Specialist specialist;
-    @ManyToOne
-    @JoinColumn(name = "stateId")
-    private VisitState state = new UnreservedVisitState();
+    @Temporal(TemporalType.DATE)
+    private Date dateOfVisit;
+    @Column(length = 255)
+    private LocalTime beginOfTheVisit;
+    private int lengthOfVisit;
+    private float price;
+    @Column
+    @Enumerated(EnumType.STRING)
+    private VisitState state = VisitState.UNRESERVED;
 
+    public Visit() {
+    }
+    
     public long getId() {
         return id;
     }
@@ -62,6 +80,46 @@ public class Visit implements Serializable{
     public void setSpecialist(Specialist specialist) {
         this.specialist = specialist;
     }
+
+    public Date getDateOfVisit() {
+        return dateOfVisit;
+    }
+
+    public void setDateOfVisit(Date dateOfVisit) {
+        this.dateOfVisit = dateOfVisit;
+    }
     
+    public LocalTime getBeginOfTheVisit() {
+        return beginOfTheVisit;
+    }
+
+    public void setBeginOfTheVisit(LocalTime beginOfTheVisit) {
+        this.beginOfTheVisit = beginOfTheVisit;
+    }
+
+    public int getLengthOfVisit() {
+        return lengthOfVisit;
+    }
+
+    public void setLengthOfVisit(int lengthOfVisit) {
+        this.lengthOfVisit = lengthOfVisit;
+    }
     
+
+    public VisitState getState() {
+        return state;
+    }
+
+    public void setState(VisitState state) {
+        this.state = state;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
 }
