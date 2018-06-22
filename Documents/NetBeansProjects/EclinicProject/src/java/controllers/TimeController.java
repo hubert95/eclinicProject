@@ -35,17 +35,32 @@ public class TimeController {
     }
 
     public static boolean checkTimesInRanges(List<RangeOfAdmission> roa, LocalTime timeBegin, LocalTime timeEnd, WeekDay wd) {
+//        for (RangeOfAdmission r : roa) {
+//            if (r.getWeekDay().equals(wd)) {
+//                if (isInRange(r.getBeginOfRange(), r.getEndOfRange(), timeBegin) || isInRange(r.getBeginOfRange(), r.getEndOfRange(), timeEnd)) {
+//                    if (timeBegin.equals(r.getEndOfRange()) || timeEnd.equals(r.getBeginOfRange())) {
+//                        return true;
+//                    }
+//                    if (timeBegin.equals(r.getBeginOfRange()) && timeEnd.equals(r.getEndOfRange())) {
+//                        return true;
+//                    }
+//                    return false;
+//                }
+//            }
+//        }
+
         for (RangeOfAdmission r : roa) {
             if (r.getWeekDay().equals(wd)) {
-                if (isInRange(r.getBeginOfRange(), r.getEndOfRange(), timeBegin) || isInRange(r.getBeginOfRange(), r.getEndOfRange(), timeEnd)) {
-                    if(timeBegin.equals(r.getEndOfRange()) || timeEnd.equals(r.getBeginOfRange()))
-                        return true;
-                    if(timeBegin.equals(r.getBeginOfRange()) && timeEnd.equals(r.getEndOfRange()))
-                        return true;
-                    return false;
+                if (r.getEndOfRange().equals(timeBegin)) {
+                    return true;
+                } else {
+                    if (isInRange(r.getBeginOfRange(), r.getEndOfRange(), timeBegin) || isInRange(r.getBeginOfRange(), r.getEndOfRange(), timeEnd)) {
+                        return false;
+                    }
                 }
             }
         }
+
         return true;
     }
 
