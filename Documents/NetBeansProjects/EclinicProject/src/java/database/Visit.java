@@ -22,6 +22,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -35,6 +37,11 @@ import javax.persistence.TemporalType;
 
 @Entity
 @TableGenerator(name = "visit")
+@NamedQueries({
+    @NamedQuery(name = "Visit.findAll", query = "SELECT v FROM Visit v"),
+    @NamedQuery(name = "Visit.findById", query = "SELECT v FROM Visit v WHERE v.id = :id"),
+    @NamedQuery(name = "Visit.findAllUnreserved", query = "SELECT v FROM Visit v WHERE v.state = :state")
+})
 public class Visit implements Serializable{
 
     @Id
