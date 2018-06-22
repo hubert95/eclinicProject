@@ -20,6 +20,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.persistence.EntityManager;
 import static java.time.temporal.ChronoUnit.MINUTES;
+import javax.faces.application.FacesMessage;
 
 /**
  *
@@ -84,29 +85,12 @@ public class GenerateDatesController {
 
     public void save(List<Visit> listOfVisits, Specialist spec) {
         EntityManager em = DBManager.getManager().createEntityManager();
-
-        if (spec == null) {
-            System.out.println("Brak specjalisty...");
-        }
-
-        if (listOfVisits == null) {
-            System.out.println("Pusta lista...");
-            return;
-        }
-//        int i = 0;
-//        for(Visit v : listOfVisits){
-//            System.out.println(v.getLengthOfVisit());
-//            System.out.println(v.getDateOfVisit());
-//            System.out.println(v.getPrice());
-//            i++;
-//        }
-//        System.out.println(i);
-
+        
         try {
             em.getTransaction().begin();
             Specialist specFromDB = (Specialist) em.createNamedQuery("Specialist.findById").setParameter("id", spec.getId()).getSingleResult();
-            //tutaj - próbowałem już foreach i wiele innych manewrów...
             specFromDB.setVisits(listOfVisits);
+            em.merge(specFromDB);
             em.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -116,6 +100,9 @@ public class GenerateDatesController {
     }
 
     public void generate() {
+        if (selectedSpecialists == null)
+            return;
+
         List<Visit> listOfVisits = new ArrayList<>();
 
         LocalDate ld = LocalDate.now();
@@ -165,9 +152,8 @@ public class GenerateDatesController {
                     lt.plusMinutes(r.getLengthOfVisit());
 
                     listOfVisits.add(visit);
-                }
+                }               
                 save(listOfVisits, s);
-//                System.out.println(r.getBeginOfRange() + " - " + r.getEndOfRange() + " [" + r.getLengthOfVisit() + "]" + "  : " + r.getWeekDay());
             }
         }
     }

@@ -33,6 +33,8 @@ public class PatientCard implements Serializable{
     private Clinic clinic;
     @OneToMany
     private List<Visit> visits;
+    @OneToMany
+    private List<Recipe> recipes;
 
     public Long getId() {
         return id;
@@ -65,7 +67,13 @@ public class PatientCard implements Serializable{
     public void setVisits(List<Visit> visits) {
         this.visits = visits;
     }
-    
-    
+
+    public List<Recipe> getRecipes() {
+        return recipes;
+    }
+
+    public void setRecipes(List<Recipe> recipes) {
+        this.recipes = recipes;
+    }
     
 }
