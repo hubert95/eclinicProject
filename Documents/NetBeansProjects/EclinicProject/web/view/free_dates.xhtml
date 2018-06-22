@@ -14,54 +14,29 @@
     <ui:define name="content">
         <h1>Wolne terminy</h1>
         <h:form>
-            <p:dataTable var="car" value="#{dtFilterView.cars}" widgetVar="carsTable"
-                         emptyMessage="Brak danych spełniających kryteria" filteredValue="#{dtFilterView.filteredCars}" selectionMode="single">
-
+            <p:dataTable id="basicDT" var="visit" value="#{freeVisitController.freeVisits}">
                 <f:facet name="header">
-                    <p:outputPanel>
-                        <p:inputText id="globalFilter" onkeyup="PF('carsTable').filter()" style="width:100%" placeholder="Wyszukaj"/>
-                    </p:outputPanel>
+                    Wizyty
                 </f:facet>
-
-                <p:column filterBy="#{car.id}" headerText="Imie" filterMatchMode="contains">
-                    <h:outputText value="#{car.id}" />
+                <p:column headerText="Data">
+                    <h:outputText value="#{visit.dateOfVisit}" />
                 </p:column>
-
-                <p:column filterBy="#{car.id}" headerText="Nazwisko" filterMatchMode="contains">
-                    <h:outputText value="#{car.id}" />
+                <p:column headerText="Godzina">
+                    <h:outputText value="#{visit.beginOfTheVisit}" />
                 </p:column>
-
-                <p:column filterBy="#{car.brand}" headerText="Specjalizacja" filterMatchMode="exact">
-                    <f:facet name="filter">
-                        <p:selectOneMenu onchange="PF('carsTable').filter()" >
-                            <f:selectItem itemLabel="Wszystkie" itemValue="#{null}" noSelectionOption="true" />
-                            <f:selectItems value="#{dtFilterView.brands}" />
-                        </p:selectOneMenu>
-                    </f:facet>
-                    <h:outputText value="#{car.brand}" />
+                <p:column headerText="Długość trwania wizyty">
+                    <h:outputText value="#{visit.lengthOfVisit}" />
                 </p:column>
-
-                <p:column filterBy="#{car.brand}" headerText="Data" filterMatchMode="exact">
-                    <f:facet name="filter">
-                        <p:selectOneMenu onchange="PF('carsTable').filter()" >
-                            <f:selectItem itemLabel="Wszystkie" itemValue="#{null}" noSelectionOption="true" />
-                            <f:selectItems value="#{dtFilterView.brands}" />
-                        </p:selectOneMenu>
-                    </f:facet>
-                    <h:outputText value="#{car.brand}" />
+                <p:column headerText="Imię specjalisty">
+                    <h:outputText value="#{visit.specialist.firstname}" />
                 </p:column>
-
-                <p:column filterBy="#{car.brand}" headerText="Godzina" filterMatchMode="exact">
-                    <f:facet name="filter">
-                        <p:selectOneMenu onchange="PF('carsTable').filter()" >
-                            <f:selectItem itemLabel="Wszystkie" itemValue="#{null}" noSelectionOption="true" />
-                            <f:selectItems value="#{dtFilterView.brands}" />
-                        </p:selectOneMenu>
-                    </f:facet>
-                    <h:outputText value="#{car.brand}" />
+                <p:column headerText="Nazwisko specjalisty">
+                    <h:outputText value="#{visit.specialist.lastname}" />
+                </p:column>
+                <p:column style="width:32px;text-align: center">
+                    <p:commandButton icon="ui-icon-disk" title="Zarezerwuj" action="#{templateController.reserveTheVisit}"/>
                 </p:column>
             </p:dataTable>
-
         </h:form>
     </ui:define>
 

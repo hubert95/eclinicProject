@@ -137,6 +137,10 @@ public class TemplateController implements Serializable {
         return "generate_dates?faces-redirect=true";
     }
 
+    public String reserveTheVisit() {
+        return "reserve_the_visit?faces-redirect=true";
+    }
+    
     public String loginController() {
 
         Account account = LoginController.loginControl(login, password);
