@@ -94,9 +94,75 @@
                 </h:panelGrid>
             </p:tab>
             <p:tab title="Nowy pacjent" disabled="#{managePatientController.tab}">
-                <h:panelGrid columns="2" cellpadding="10">
-                    <h:outputText value="Nowy pacjent" />
-                </h:panelGrid>
+                <h:form>
+                    <p:messages showDetail="true"/>
+                    <h:panelGrid columns="6" cellpadding="10">
+                        <h:outputText value="PESEL: *" />
+                        <p:inputText value="#{registerController.patient.pesel}" required="true" requiredMessage="Numer PESEL jest wymagany.">
+                            <f:validator validatorId="peselValidator"/>
+                        </p:inputText>
+
+                        <f:event listener="#{registerController.validatePassword}" type="postValidate" />
+
+                        <h:outputText value="Hasło: *" />
+                        <p:inputText id="password" value="#{registerController.passw1}" type="password" required="true" requiredMessage="Pole z hasłem jest wymagane.">
+                            <f:validator validatorId="passwordValidator"/>
+                        </p:inputText>
+
+                        <h:outputText value="Powtórz hasło: *" />
+                        <p:inputText id="confirmPassword" value="#{registerController.passw2}" type="password" required="true" requiredMessage="Pole z potwierdzeniem hasła jest wymagane."/>
+
+                        <h:outputText value="Imię: *" />
+                        <p:inputText value="#{registerController.patient.firstname}" required="true" requiredMessage="Pole Imię jest wymagane.">
+                            <f:validator validatorId="alphabetLetterValidator"/>
+                        </p:inputText>
+
+                        <h:outputText value="Nazwisko: *" />
+                        <p:inputText value="#{registerController.patient.lastname}" required="true" requiredMessage="Pole Nazwisko jest wymagane.">
+                            <f:validator validatorId="alphabetLetterValidator"/>
+                        </p:inputText>
+
+
+                        <h:outputText value="Miejscowość: *" />
+                        <p:inputText value="#{registerController.address.locality}" >
+                            <f:validator validatorId="withoutSpecialCharsValidator" />
+                        </p:inputText>
+
+                        <h:outputText value="Ulica: *" />
+                        <p:inputText value="#{registerController.address.street}" >
+                            <f:validator validatorId="withoutSpecialCharsValidator" />
+                        </p:inputText>
+
+                        <h:outputText value="Numer domu: *" />
+                        <p:inputText value="#{registerController.address.houseNumber}" >
+                            <f:validator validatorId="houseNumberValidator" />
+                        </p:inputText>
+
+                        <h:outputText value="Kod pocztowy: *" />
+                        <p:inputText value="#{registerController.address.postalCode}" >
+                            <f:validator validatorId="postalCodeValidator" />
+                        </p:inputText>
+
+                        <h:outputText value="Email: *" />
+                        <p:inputText value="#{registerController.contact.email}" required="true" requiredMessage="Email jest wymagany." label="Email">
+                            <f:validator validatorId="emailValidator"/>
+                        </p:inputText>
+
+                        <h:outputText value="Numer telefonu: " />
+                        <p:inputText value="#{registerController.contact.phoneNumber}"/>
+
+                        <h:outputText value="Dodatkowe informacje: " />
+                        <p:inputText value="#{registerController.contact.info}"/>
+
+                        <h:outputText value="Typ powiadomienia: " />
+                        <p:selectOneMenu id="typeOfNotify" value="#{registerController.contact.typeOfNotifications}" style="width:125px">
+                            <f:selectItem itemLabel="brak" itemValue="brak" />
+                            <f:selectItem itemLabel="email" itemValue="email" />
+                            <f:selectItem itemLabel="SMS" itemValue="sms" itemDisabled="true" />
+                            <f:selectItem itemLabel="email i SMS" itemValue="emailsms" itemDisabled="true"/>
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+                </h:form>
             </p:tab>
         </p:tabView>
         <h:form id="manageForm">

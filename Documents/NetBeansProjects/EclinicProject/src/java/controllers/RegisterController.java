@@ -5,6 +5,7 @@
  */
 package controllers;
 
+import controllers.security.MD5;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import database.Address;
@@ -13,6 +14,7 @@ import database.Patient;
 import database.Account;
 import database.Person;
 import java.io.Serializable;
+import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -128,13 +130,13 @@ public class RegisterController implements Serializable {
     }
 
 
-    public void save() throws ParseException {
+    public void save() throws ParseException, NoSuchAlgorithmException {
         EntityManager em = DBManager.getManager().createEntityManager();
 
         patient.setDateOfBirth();
         patient.setAddress(address);
         patient.setContact(contact);
-        account.setPassword(passw1);
+        account.setPassword(MD5.hashPassword(passw1));
         account.setLogin(patient.getPesel());
         account.setRole(Account.Role.PATIENT);
         patient.setAccount(account);

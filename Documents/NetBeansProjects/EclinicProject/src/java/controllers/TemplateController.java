@@ -5,8 +5,10 @@ package controllers;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import controllers.security.MD5;
 import database.Account;
 import java.io.Serializable;
+import java.security.NoSuchAlgorithmException;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 
@@ -112,38 +114,37 @@ public class TemplateController implements Serializable {
     public String logOut() {
         return "/view/index?faces-redirect=true";
     }
-    
-    public String admin(){
+
+    public String admin() {
         return "admin?faces-redirect=true";
     }
-    
-    public String addEmployeesAdmin(){
+
+    public String addEmployeesAdmin() {
         return "add_employees_admin?faces-redirect=true";
     }
-    
-    public String manageEmployeesAdmin(){
+
+    public String manageEmployeesAdmin() {
         return "manage_employees_admin?faces-redirect=true";
     }
-    
-    public String othersAdmin(){
+
+    public String othersAdmin() {
         return "others_admin?faces-redirect=true";
     }
-    
-    public String addUserAdmin(){
+
+    public String addUserAdmin() {
         return "add_employees_admin?faces-redirect=true";
     }
-    
-    public String recepcionistGenerateDates(){
+
+    public String recepcionistGenerateDates() {
         return "generate_dates?faces-redirect=true";
     }
 
     public String reserveTheVisit() {
         return "reserve_the_visit?faces-redirect=true";
     }
-    
-    public String loginController() {
 
-        Account account = LoginController.loginControl(login, password);
+    public String loginController() throws NoSuchAlgorithmException {
+        Account account = LoginController.loginControl(login, MD5.hashPassword(password));
 
         clearValues();
 
@@ -159,13 +160,13 @@ public class TemplateController implements Serializable {
                     return "admin/admin";
             }
         }
-            
+
         MessageController.addMessage("Ostrzeżenie", "Wprowadzono błędny login lub hasło.", FacesMessage.SEVERITY_WARN);
 
         return null;
     }
-    
-    public String loginByFacebook(){
+
+    public String loginByFacebook() {
         return null;
     }
 

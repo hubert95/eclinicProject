@@ -91,15 +91,16 @@
                     </h:panelGrid>
                     <p:commandButton value="Zapisz" action="#{manageDoctorController.save}" update="message singleDT" />
                     <p:dataTable id="singleDT" style="margin-top:20px;" var="range" value="#{manageDoctorController.rangeOfAdmissions}" selectionMode="single" 
-                                 selection="#{manageDoctorController.selectedRange}" rowKey="#{range.id}" emptyMessage="Lekarz nie posiada w tym dniu żadnych obowiązków.">
+                                 selection="#{manageDoctorController.selectedRange}" rowKey="#{range.id}" emptyMessage="Lekarz nie posiada w tym dniu żadnych obowiązków." sortMode="single">
                         <p:messages id="message"/>
+                        <p:ajax event="sort"/>
                         <p:column headerText="Początek zakresu">
                             <h:outputText value="#{range.beginOfRange}" />
                         </p:column>
                         <p:column headerText="Koniec zakresu">
                             <h:outputText value="#{range.endOfRange}" />
                         </p:column>
-                        <p:column headerText="Długość wizyt w zakresie">
+                        <p:column headerText="Długość wizyt w zakresie" sortBy="#{range.lengthOfVisit}">
                             <h:outputText value="#{range.lengthOfVisit}" />
                         </p:column>
 
@@ -123,7 +124,7 @@
             </p:tab>
         </p:tabView>
         <h:form id="manageForm">
-            <p:commandButton id="manageButton" disabled="#{!manageDoctorController.tab}" value="Zakończ zarzadzanie" update="manageButton :doctorTabView" action="#{manageDoctorController.onTabChange}"/>
+            <p:commandButton id="manageButton" disabled="#{!manageDoctorController.tab}" value="Zakończ zarządzanie" update="manageButton :doctorTabView" action="#{manageDoctorController.onTabChange}"/>
         </h:form>
 
     </ui:define>
