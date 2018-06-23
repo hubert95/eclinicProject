@@ -6,6 +6,7 @@
 package database;
 
 import controllers.converters.VisitStateConverter;
+import controllers.converters.WeekDayConverter;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -24,16 +25,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import java.util.List;
+import javax.persistence.Converter;
 
 /**
  *
- * @author Admin
+ * @author Hubert Januszek
  */
-
-//dokończyć
 
 @Entity
 @TableGenerator(name = "visit")
@@ -58,8 +60,11 @@ public class Visit implements Serializable{
     private int lengthOfVisit;
     private float price;
     @Column
+    @Convert(converter = VisitStateConverter.class)
     @Enumerated(EnumType.STRING)
     private VisitState state = VisitState.UNRESERVED;
+    @OneToMany
+    private List<Recipe> recipes;
 
     public Visit() {
     }
@@ -129,4 +134,11 @@ public class Visit implements Serializable{
         this.price = price;
     }
 
+    public List<Recipe> getRecipes() {
+        return recipes;
+    }
+
+    public void setRecipes(List<Recipe> recipes) {
+        this.recipes = recipes;
+    }
 }

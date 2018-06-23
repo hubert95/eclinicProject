@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.TableGenerator;
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.ManyToOne;
@@ -18,7 +19,7 @@ import javax.persistence.OneToOne;
 
 /**
  *
- * @author Admin
+ * @author Hubert Januszek
  */
 @Entity
 @TableGenerator(name = "patientcard")
@@ -33,7 +34,7 @@ public class PatientCard implements Serializable{
     private Clinic clinic;
     @OneToMany
     private List<Visit> visits;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Recipe> recipes;
 
     public Long getId() {

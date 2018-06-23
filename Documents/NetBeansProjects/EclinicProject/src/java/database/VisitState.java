@@ -7,7 +7,7 @@ package database;
 
 /**
  *
- * @author Admin
+ * @author Hubert Januszek
  */
 public enum VisitState {
     UNRESERVED, UNPAYED, PAYED, CANCELEDBYCLINIC, CANCELEDBYPATIENT, FINISHED

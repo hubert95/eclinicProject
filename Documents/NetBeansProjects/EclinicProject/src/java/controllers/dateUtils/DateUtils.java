@@ -16,7 +16,7 @@ import javax.faces.bean.RequestScoped;
 
 /**
  *
- * @author Admin
+ * @author Hubert Januszek
  */
 @ManagedBean
 @RequestScoped

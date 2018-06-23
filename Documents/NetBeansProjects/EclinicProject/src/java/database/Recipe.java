@@ -16,7 +16,7 @@ import javax.persistence.TableGenerator;
 
 /**
  *
- * @author Admin
+ * @author Hubert Januszek
  */
 
 @Entity
