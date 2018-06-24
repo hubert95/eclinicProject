@@ -23,7 +23,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author Admin
+ * @author Hubert Januszek
  */
 @ManagedBean(name = "manageDoctorController")
 @ViewScoped

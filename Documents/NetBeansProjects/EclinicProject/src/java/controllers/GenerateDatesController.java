@@ -20,11 +20,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.persistence.EntityManager;
 import static java.time.temporal.ChronoUnit.MINUTES;
-import javax.faces.application.FacesMessage;
 
 /**
  *
- * @author Admin
+ * @author Hubert Januszek
  */
 @ManagedBean(name = "generateDatesController")
 @RequestScoped
@@ -149,10 +148,10 @@ public class GenerateDatesController {
                     visit.setDateOfVisit(Date.from(dateOfWeekDay.atStartOfDay(ZoneId.systemDefault()).toInstant()));
                     visit.setPrice(returnPriceForVisit(r.getLengthOfVisit()));
                     visit.setBeginOfTheVisit(lt);
-                    lt.plusMinutes(r.getLengthOfVisit());
+                    lt = lt.plusMinutes(r.getLengthOfVisit());
 
                     listOfVisits.add(visit);
-                }               
+                }       
                 save(listOfVisits, s);
             }
         }

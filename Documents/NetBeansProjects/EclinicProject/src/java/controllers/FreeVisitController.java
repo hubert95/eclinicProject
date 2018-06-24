@@ -14,7 +14,7 @@ import javax.persistence.EntityManager;
 
 /**
  *
- * @author Admin
+ * @author Hubert Januszek
  */
 @ManagedBean(name = "freeVisitController")
 @RequestScoped
