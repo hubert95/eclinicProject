@@ -7,6 +7,7 @@ package controllers;
 
 import database.RangeOfAdmission;
 import database.Specialist;
+import database.Specialization;
 import database.WeekDay;
 import java.io.IOException;
 import java.time.LocalTime;
@@ -27,7 +28,7 @@ import java.io.Serializable;
  */
 @ManagedBean(name = "manageDoctorController")
 @ViewScoped
-public class ManageDoctorController implements Serializable{
+public class ManageDoctorController implements Serializable {
 
     private Specialist selectedSpecialist;
     private long selectedSpecId;
@@ -47,6 +48,7 @@ public class ManageDoctorController implements Serializable{
 
     @PostConstruct
     public void init() {
+        //tmp - stworzenie nowego specjalisty
 //        tmp();
         this.tab = false;
         this.tabNumber = 0;
@@ -191,6 +193,7 @@ public class ManageDoctorController implements Serializable{
         Specialist s = new Specialist();
         s.setFirstname("Andrzej");
         s.setLastname("Kowalski");
+        s.setSpecialization("urolog");
         EntityManager em = DBManager.getManager().createEntityManager();
 
         em.getTransaction().begin();

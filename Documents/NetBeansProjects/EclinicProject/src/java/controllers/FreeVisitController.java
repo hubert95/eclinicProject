@@ -5,9 +5,12 @@
  */
 package controllers;
 
+import database.Specialization;
 import database.Visit;
 import database.VisitState;
+import java.util.ArrayList;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.persistence.EntityManager;
@@ -19,8 +22,46 @@ import javax.persistence.EntityManager;
 @ManagedBean(name = "freeVisitController")
 @RequestScoped
 public class FreeVisitController {
+    
+    private List<Visit> filteredVisits;
 
     public FreeVisitController() {
+    }
+
+    public List<Visit> getFilteredVisits() {
+        return filteredVisits;
+    }
+
+    public void setFilteredVisits(List<Visit> filteredVisits) {
+        this.filteredVisits = filteredVisits;
+    }
+    
+    public List<String> getNamesOfSpecialization(){
+        EntityManager em = DBManager.getManager().createEntityManager();
+        List<Specialization> specializations = null;
+        
+        try {
+            em.getTransaction().begin();
+            specializations = (List<Specialization>) em.createNamedQuery("Specialization.findAll").getResultList();
+            em.getTransaction().commit();
+        } catch (Exception e) {
+        } finally {
+            em.close();
+        }
+        
+        if(specializations == null) return null;
+        
+        List<String> names = new ArrayList<>();
+
+        for(Specialization s : specializations){
+            names.add(s.getName());
+        }
+        
+        return names;
+    }
+    
+    public void notLoggedForReservation(){
+        MessageController.addMessage("Nie jesteś zalogowany.", "By móc zarezerwować wizytę musisz być zalogowany", FacesMessage.SEVERITY_INFO);
     }
     
     public List<Visit> getFreeVisits(){

@@ -5,15 +5,18 @@
  */
 package database;
 
+import controllers.DBManager;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.TableGenerator;
 
 /**
@@ -28,8 +31,8 @@ import javax.persistence.TableGenerator;
 })
 public class Specialist extends User implements Serializable {
 
-    @OneToMany(mappedBy = "specialist")
-    private List<Specialization> specializations;
+    @OneToOne(cascade = CascadeType.MERGE)
+    private Specialization specialization;
     
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "specialist")
     private List<RangeOfAdmission> rangeOfAdmissions;
@@ -37,15 +40,26 @@ public class Specialist extends User implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "specialist", fetch = FetchType.LAZY)
     private List<Visit> visits;
 
-
-    public List<Specialization> getSpecializations() {
-        return specializations;
+    public Specialization getSpecialization() {
+        return specialization;
     }
 
-    public void setSpecializations(List<Specialization> specializations) {
-        this.specializations = specializations;
+    public void setSpecialization(String name) {
+        Specialization specialization = null;
+        EntityManager em = DBManager.getManager().createEntityManager();
+        
+        try {
+            em.getTransaction().begin();
+            specialization = (Specialization) em.createNamedQuery("Specialization.findByName").setParameter("name", name).getSingleResult();
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+        this.specialization = specialization;
     }
-
+    
     public List<RangeOfAdmission> getRangeOfAdmissions() {
         return rangeOfAdmissions;
     }

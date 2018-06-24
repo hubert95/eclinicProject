@@ -50,8 +50,6 @@ public class Visit implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @ManyToOne
-    Patient patient;
-    @ManyToOne
     Specialist specialist;
     @Temporal(TemporalType.DATE)
     private Date dateOfVisit;
@@ -63,8 +61,6 @@ public class Visit implements Serializable{
     @Convert(converter = VisitStateConverter.class)
     @Enumerated(EnumType.STRING)
     private VisitState state = VisitState.UNRESERVED;
-    @OneToMany
-    private List<Recipe> recipes;
 
     public Visit() {
     }
@@ -75,14 +71,6 @@ public class Visit implements Serializable{
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public Patient getPatient() {
-        return patient;
-    }
-
-    public void setPatient(Patient patient) {
-        this.patient = patient;
     }
 
     public Specialist getSpecialist() {
@@ -132,13 +120,5 @@ public class Visit implements Serializable{
 
     public void setPrice(float price) {
         this.price = price;
-    }
-
-    public List<Recipe> getRecipes() {
-        return recipes;
-    }
-
-    public void setRecipes(List<Recipe> recipes) {
-        this.recipes = recipes;
     }
 }

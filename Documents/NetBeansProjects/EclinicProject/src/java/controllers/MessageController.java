@@ -26,6 +26,5 @@ public class MessageController {
         FacesContext context = FacesContext.getCurrentInstance();
         context.getExternalContext().getFlash().setKeepMessages(true);
         context.addMessage(null, new FacesMessage(severity, summary, detail));
-    }
-    
+    } 
 }

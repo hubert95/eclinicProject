@@ -11,6 +11,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.TableGenerator;
 
 /**
@@ -19,13 +22,17 @@ import javax.persistence.TableGenerator;
  */
 @Entity
 @TableGenerator(name = "specialization")
+@NamedQueries({
+    @NamedQuery(name = "Specialization.findAll", query = "SELECT s FROM Specialization s"),
+    @NamedQuery(name = "Specialization.findByName", query = "SELECT s FROM Specialization s WHERE s.name = :name")
+})
 public class Specialization implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @ManyToOne
+    @OneToOne(mappedBy = "specialization")
     private Specialist specialist;
 
     public Long getId() {
@@ -42,6 +49,14 @@ public class Specialization implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Specialist getSpecialist() {
+        return specialist;
+    }
+
+    public void setSpecialist(Specialist specialist) {
+        this.specialist = specialist;
     }
 
     @Override

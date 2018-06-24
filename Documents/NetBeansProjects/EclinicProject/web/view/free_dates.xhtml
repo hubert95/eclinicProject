@@ -13,29 +13,51 @@
 
     <ui:define name="content">
         <h1>Wolne terminy</h1>
-        <h:form>
-            <p:dataTable id="basicDT" var="visit" value="#{freeVisitController.freeVisits}">
-                <f:facet name="header">
-                    Wizyty
-                </f:facet>
-                <p:column headerText="Data">
+        <h:form id="freeVisitsForm">
+            <p:dataTable var="visit" value="#{freeVisitController.freeVisits}" widgetVar="visitsTable"
+                         emptyMessage="Brak danych spełniających kryteria" filteredValue="#{freeVisitController.filteredVisits}" >
+                <p:column filterBy="#{visit.specialist.specialization.name}" headerText="Specjalizacja" filterMatchMode="exact">
+                    <f:facet name="filter">
+                        <p:selectOneMenu onchange="PF('visitsTable').filter()" >
+                            <f:selectItem itemLabel="Wszystkie" itemValue="#{null}" noSelectionOption="true" />
+                            <f:selectItems value="#{freeVisitController.namesOfSpecialization}" />
+                        </p:selectOneMenu>
+                    </f:facet>
+                    <h:outputText value="#{visit.specialist.specialization.name}" />
+                </p:column>
+
+                <p:column filterBy="#{visit.specialist.firstname} #{visit.specialist.lastname}" headerText="Specjalista" filterMatchMode="contains">
+                    <h:outputText value="#{visit.specialist.firstname} #{visit.specialist.lastname}" />
+                </p:column>
+
+                <p:column filterBy="#{visit.dateOfVisit}" headerText="Data wizyty" filterMatchMode="contains">
                     <h:outputText value="#{visit.dateOfVisit}" />
                 </p:column>
-                <p:column headerText="Godzina">
+
+                <p:column filterBy="#{visit.beginOfTheVisit}" headerText="Godzina rozpoczęcia wizyty" filterMatchMode="contains">
                     <h:outputText value="#{visit.beginOfTheVisit}" />
                 </p:column>
-                <p:column headerText="Długość trwania wizyty">
+
+                <p:column filterBy="#{visit.lengthOfVisit}" headerText="Czas wizyty (min)" filterMatchMode="exact">
+                    <f:facet name="filter">
+                        <p:selectOneMenu onchange="PF('visitsTable').filter()" >
+                            <f:selectItem itemLabel="Wszystkie" itemValue="#{null}" noSelectionOption="true" />
+                            <f:selectItem itemLabel="10" itemValue="10" />
+                            <f:selectItem itemLabel="20" itemValue="20" />
+                            <f:selectItem itemLabel="30" itemValue="30" />
+                            <f:selectItem itemLabel="40" itemValue="40" />
+                            <f:selectItem itemLabel="50" itemValue="50" />
+                            <f:selectItem itemLabel="60" itemValue="60" />
+                        </p:selectOneMenu>
+                    </f:facet>
                     <h:outputText value="#{visit.lengthOfVisit}" />
                 </p:column>
-                <p:column headerText="Imię specjalisty">
-                    <h:outputText value="#{visit.specialist.firstname}" />
-                </p:column>
-                <p:column headerText="Nazwisko specjalisty">
-                    <h:outputText value="#{visit.specialist.lastname}" />
-                </p:column>
+
                 <p:column style="width:32px;text-align: center">
-                    <p:commandButton icon="ui-icon-disk" title="Zarezerwuj" action="#{templateController.reserveTheVisit}"/>
+                    <p:growl id="growl" showDetail="true"/>
+                    <p:commandButton icon="ui-icon-disk" title="Zarezerwuj" action="#{freeVisitController.notLoggedForReservation}" update="growl"/>
                 </p:column>
+
             </p:dataTable>
         </h:form>
     </ui:define>
