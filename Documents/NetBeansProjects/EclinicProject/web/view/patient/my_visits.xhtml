@@ -25,7 +25,7 @@
                                 Wizyty, na które jesteś umówiony/a
                             </f:facet>
 
-                            <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+                            <h:panelGrid columns="2" style="width:100%">
                                 <p:outputPanel>
                                     <h:panelGrid columns="2" cellpadding="5">
                                         <h:outputText value="Data wizyty" />
@@ -53,7 +53,7 @@
                                 Wizyty, na których byłeś/aś
                             </f:facet>
 
-                            <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+                            <h:panelGrid columns="2" style="width:100%">
                                 <p:outputPanel>
                                     <h:panelGrid columns="2" cellpadding="5">
                                         <h:outputText value="Data wizyty" />
@@ -67,6 +67,8 @@
 
                                         <h:outputText value="Specjalista" />
                                         <h:outputText value="#{visitPast.specialist.firstname} #{visitPast.specialist.lastname}" style="font-weight: bold"/>
+
+                                        <p:commandButton value="Sprawdź szczegóły wizyty" style="font-weight: bold"/>
                                     </h:panelGrid>
                                     <hr/>
                                 </p:outputPanel>

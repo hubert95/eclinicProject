@@ -9,7 +9,13 @@
     <ui:define name="menu"></ui:define>
 
     <ui:define name="content">
-        <h1>Strona domowa</h1>
+        <h1>Strona główna</h1>
+
+        <h2>#{sessionController.getUserInfo()} witamy w serwisie ePrzychodnia!</h2>
+
+        <p style="">System ePrzychodnia to wygodny sposób rezerwacji wizyt do wybranego lekarza czy poradni za pośrednictwem platformy internetowej.</p>
+
+        <p>Po przejściu do zakładki "Wolne terminy" pacjent ma możliwość sprawdzenia dostępności godzin do konkretnego lekarza bez konieczności zalogowania się.</p>
     </ui:define>
 
 </ui:composition>
