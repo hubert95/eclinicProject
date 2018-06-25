@@ -15,7 +15,8 @@
 
     <ui:define name="content">
         <h1>Generator terminów</h1>
-        <h:form>
+        <h:form id="generateForm">
+            <p:growl id="message" showDetail="true" />
             <p:dataTable id="multipleDT" var="spec" value="#{generateDatesController.specialists}" selectionMode="multiple" selection="#{generateDatesController.selectedSpecialists}" rowKey="#{spec.id}">
                 <f:facet name="header">
                     <h:outputLabel for="generatorRange" value="Generuj na cały: " />
@@ -38,14 +39,14 @@
                     <h:outputText value="#{spec.lastname}" />
                 </p:column>
                 <f:facet name="footer">
-                    <p:commandButton process="multipleDT" value="Generuj wolne terminy" icon="ui-icon-disk" action="#{generateDatesController.generate}">
+                    <p:commandButton process="multipleDT" value="Generuj wolne terminy" icon="ui-icon-disk" action="#{generateDatesController.generate}" update=":generateForm:message">
                         <p:confirm header="Potwierdzenie" message="Czy na pewno chcesz wygenerować wolne terminy dla zaznaczonych specjalistów?" icon="ui-icon-alert"/>
                     </p:commandButton>
                 </f:facet>
             </p:dataTable>
             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
                 <p:commandButton value="Tak" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
-                <p:commandButton value="Nie" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                <p:commandButton value="Nie" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
             </p:confirmDialog>
         </h:form>
     </ui:define>

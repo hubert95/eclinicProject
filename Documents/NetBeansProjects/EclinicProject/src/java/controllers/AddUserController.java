@@ -195,12 +195,12 @@ public class AddUserController{
             }
         }
     }
-    //tutaj
+
     public void showSpecialization(){
         if(typeOfEmployee.equals("Lekarz")){
-            disableMenu = true;
-        } else {
             disableMenu = false;
+        } else {
+            disableMenu = true;
         }
     }
 }

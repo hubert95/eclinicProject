@@ -32,10 +32,10 @@
                 <p:inputText id="confirmPassword" value="#{addUserController.passw2}" type="password" required="true" requiredMessage="Pole z potwierdzeniem hasła jest wymagane."/>
 
                 <p:outputLabel for="typeOfEmployee" value="Typ pracownika (domyślnie lekarz):" />
-                <p:selectOneMenu id="typeOfEmployee" value="#{addUserController.typeOfEmployee}" style="width:180px">
+                <p:selectOneMenu id="typeOfEmployee" value="#{addUserController.typeOfEmployee}" style="width:180px" >
                     <f:selectItem itemLabel="Lekarz" itemValue="Lekarz"/>
                     <f:selectItem itemLabel="Recepcjonista" itemValue="Recepcjonista" />
-                    <p:ajax update="specializationForDoctor"/>
+                    <p:ajax event="change" update="specializationForDoctor" listener="#{addUserController.showSpecialization}"/>
                 </p:selectOneMenu>
                 
                 <p:selectOneMenu id="specializationForDoctor" disabled="#{addUserController.disableMenu}">

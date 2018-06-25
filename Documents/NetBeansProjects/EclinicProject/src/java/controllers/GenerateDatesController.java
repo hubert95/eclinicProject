@@ -20,6 +20,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.persistence.EntityManager;
 import static java.time.temporal.ChronoUnit.MINUTES;
+import javax.faces.application.FacesMessage;
 
 /**
  *
@@ -154,6 +155,7 @@ public class GenerateDatesController {
                 }       
                 save(listOfVisits, s);
             }
+            MessageController.addMessage("Informacja.", "Generowanie wizyt dla " + s.getFirstname() + " " + s.getLastname() + " zakończono powodzeniem.", FacesMessage.SEVERITY_INFO);
         }
     }
 
