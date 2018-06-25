@@ -5,14 +5,18 @@
  */
 package database;
 
+import controllers.DBManager;
+import controllers.MessageController;
 import controllers.peselUtils.PeselUtils;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.TableGenerator;
@@ -29,7 +33,8 @@ import org.hibernate.annotations.NamedQuery;
 @Entity
 @TableGenerator(name = "patient")
 @NamedQueries({
-    @NamedQuery(name = "Patient.findAll", query = "SELECT p from Patient p")
+    @NamedQuery(name = "Patient.findAll", query = "SELECT p from Patient p"),
+    @NamedQuery(name = "Patient.findByPesel", query = "SELECT p from Patient p WHERE p.pesel = :pesel")
 })
 public class Patient extends User implements Serializable {
     
@@ -38,7 +43,7 @@ public class Patient extends User implements Serializable {
     private Date dateOfBirth;
     @Transient
     private final SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-    @OneToMany(mappedBy = "patient", orphanRemoval = true, cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "patient", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<PatientCard> patientCards;
    
 

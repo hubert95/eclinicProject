@@ -33,9 +33,13 @@
 
                 <p:outputLabel for="typeOfEmployee" value="Typ pracownika (domyślnie lekarz):" />
                 <p:selectOneMenu id="typeOfEmployee" value="#{addUserController.typeOfEmployee}" style="width:180px">
-                    <f:selectItem itemLabel="Wybierz jedno" itemValue="Lekarz" />
-                    <f:selectItem itemLabel="Lekarz" itemValue="Lekarz" />
+                    <f:selectItem itemLabel="Lekarz" itemValue="Lekarz"/>
                     <f:selectItem itemLabel="Recepcjonista" itemValue="Recepcjonista" />
+                    <p:ajax update="specializationForDoctor"/>
+                </p:selectOneMenu>
+                
+                <p:selectOneMenu id="specializationForDoctor" disabled="#{addUserController.disableMenu}">
+                    <f:selectItems value="#{freeVisitController.namesOfSpecialization}" />
                 </p:selectOneMenu>
 
                 <h:outputText value="Imię: *" />

@@ -30,9 +30,9 @@ public class PatientCard implements Serializable{
     private Long id;
     @ManyToOne
     private Patient patient;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     private Clinic clinic;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Visit> visits;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Recipe> recipes;

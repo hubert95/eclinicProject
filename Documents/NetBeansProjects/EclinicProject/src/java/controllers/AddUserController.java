@@ -41,6 +41,8 @@ public class AddUserController{
     
     private String typeOfEmployee;
     
+    private boolean disableMenu = false;
+    
     public String getLogin() {
         return login;
     }
@@ -112,6 +114,15 @@ public class AddUserController{
     public void setTypeOfEmployee(String typeOfEmployee) {
         this.typeOfEmployee = typeOfEmployee;
     }
+
+    public boolean isDisableMenu() {
+        return disableMenu;
+    }
+
+    public void setDisableMenu(boolean disableMenu) {
+        this.disableMenu = disableMenu;
+    }
+    
     
     public void validatePassword(ComponentSystemEvent event) {
 
@@ -182,6 +193,14 @@ public class AddUserController{
             }else if(typeOfEmployee.equals("Recepcjonista")){
                 this.recepcionist = new Recepcionist();
             }
+        }
+    }
+    //tutaj
+    public void showSpecialization(){
+        if(typeOfEmployee.equals("Lekarz")){
+            disableMenu = true;
+        } else {
+            disableMenu = false;
         }
     }
 }

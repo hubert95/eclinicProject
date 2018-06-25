@@ -12,12 +12,16 @@ import database.Address;
 import database.Contact;
 import database.Patient;
 import database.Account;
+import database.Clinic;
+import database.PatientCard;
 import database.Person;
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -140,6 +144,13 @@ public class RegisterController implements Serializable {
         account.setLogin(patient.getPesel());
         account.setRole(Account.Role.PATIENT);
         patient.setAccount(account);
+        PatientCard pc = new PatientCard();
+        Clinic cl = new Clinic();
+        pc.setClinic(new Clinic());
+        pc.setPatient(patient);
+        List<PatientCard> cards = new ArrayList<>();
+        cards.add(pc);
+        patient.setPatientCards(cards);
 
         try {
             em.getTransaction().begin();
@@ -147,6 +158,7 @@ public class RegisterController implements Serializable {
             em.getTransaction().commit();
             MessageController.addMessageAfterRedirect("Informacja", "Dodano nowego użytkownika. " + patient.getFirstname() + " witaj w naszym serwisie.", FacesMessage.SEVERITY_INFO);
         } catch (Exception e) {
+            e.printStackTrace();
             MessageController.addMessageAfterRedirect("Błąd", "Proces dodawania nowego użytkownika nie powiódł się. Skontaktuj się z administratorem.", FacesMessage.SEVERITY_ERROR);
         } finally {
             em.close();
