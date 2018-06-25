@@ -24,7 +24,7 @@ import org.hibernate.annotations.NamedQuery;
     @NamedQuery(name = "Account.control", query = "SELECT a FROM Account a WHERE a.login = :login AND a.password = :password")
 })
 public class Account implements Serializable {
-    
+
     public enum Role {
         PATIENT, DOCTOR, RECEPCIONIST, ADMIN
     }
@@ -36,8 +36,8 @@ public class Account implements Serializable {
     private String login;
     private String password;
     private Role role;
-    
-        public Long getId() {
+
+    public Long getId() {
         return id;
     }
 
@@ -68,12 +68,12 @@ public class Account implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
-    
+
 }

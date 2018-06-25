@@ -6,6 +6,7 @@
 package controllers;
 
 import database.Account;
+import database.User;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
@@ -27,10 +28,11 @@ public class LoginController {
         
         EntityManager em = DBManager.getManager().createEntityManager();
         Account account = null;
-        
+        User user = null;
         try {
             em.getTransaction().begin();
             account = (Account) em.createNamedQuery("Account.control").setParameter("login", login).setParameter("password", password).getSingleResult();
+            user = (User) em.createNamedQuery("User.returnOwner").setParameter("account", account).getSingleResult();
             em.getTransaction().commit();
         } catch (Exception e) {
             return null;
@@ -43,8 +45,9 @@ public class LoginController {
             httpSession.setAttribute("id", account.getId());
             httpSession.setAttribute("role", account.getRole());
             httpSession.setAttribute("login", account.getLogin());
+            httpSession.setAttribute("user", user);
         }
-        
+
         return account;
     }
     

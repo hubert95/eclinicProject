@@ -19,6 +19,9 @@ import org.hibernate.annotations.NamedQuery;
  */
 @Entity
 @TableGenerator(name = "user")
+@javax.persistence.NamedQueries({
+    @javax.persistence.NamedQuery(name = "User.returnOwner", query = "SELECT u FROM User u WHERE u.account = :account")
+})
 public abstract class User extends Person implements Serializable {
     
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)

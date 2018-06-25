@@ -66,6 +66,10 @@ public class ManagePatientController {
         }
         return patients;
     }
+    
+    public void reserve(){
+        
+    }
 
     public void onTabChange() throws IOException {
         if (selectedPatient == null) {

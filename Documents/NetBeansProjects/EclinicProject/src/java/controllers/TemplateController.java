@@ -148,7 +148,8 @@ public class TemplateController implements Serializable {
     public String loginController() throws NoSuchAlgorithmException {
         LoginController.loginControl(login, MD5.hashPassword(password));
         clearValues();
-        Role rola=(Role)SessionUtilsController.getRole();
+        Role rola = (Role)SessionUtilsController.getRole();
+        
         if (null != rola) {
             switch (rola) {
                 case PATIENT:

@@ -14,6 +14,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import database.Account.Role;
+import database.User;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -53,6 +54,16 @@ public class SessionUtilsController {
 		else
 			return null;
 	}
+        
+        public static String getUserInfo(){
+            HttpSession session = getSession();
+            if (session != null) {
+                User user = (User) session.getAttribute("user");
+                return user.getFirstname() + " " + user.getLastname();
+            } else {
+                return null;
+            }
+        }
         
         public static void sessionClose(){
             HttpSession session = SessionUtilsController.getSession();
