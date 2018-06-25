@@ -5,12 +5,14 @@
  */
 package controllers;
 
+import controllers.security.MD5;
 import database.Account;
 import database.Address;
 import database.Contact;
 import database.Patient;
 import database.Recepcionist;
 import database.Specialist;
+import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -154,7 +156,7 @@ public class AddUserController{
         }
     }
     
-    public void save() throws ParseException{
+    public void save() throws ParseException, NoSuchAlgorithmException{
         EntityManager em = DBManager.getManager().createEntityManager();
 
         if(typeOfEmployee.equals("Lekarz")){
@@ -169,7 +171,7 @@ public class AddUserController{
             recepcionist.setAccount(account);
         }
         
-        account.setPassword(passw1);
+        account.setPassword(MD5.hashPassword(passw1));
         account.setLogin(login);
 
         try {

@@ -10,6 +10,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.persistence.EntityManager;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -35,6 +36,13 @@ public class LoginController {
             return null;
         } finally{
             em.close();
+        }
+        
+        if(account!=null){
+            HttpSession httpSession = SessionUtilsController.getSession();
+            httpSession.setAttribute("id", account.getId());
+            httpSession.setAttribute("role", account.getRole());
+            httpSession.setAttribute("login", account.getLogin());
         }
         
         return account;

@@ -215,7 +215,7 @@ article p, h2{
     float: right;
 }
 
-#registration_form ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-only{
+#registration_form #add_employee_form ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-only{
     padding-top: 50px;
 }
 

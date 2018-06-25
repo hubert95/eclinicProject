@@ -7,6 +7,7 @@ package controllers;
  */
 import controllers.security.MD5;
 import database.Account;
+import database.Account.Role;
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import javax.faces.application.FacesMessage;
@@ -112,6 +113,7 @@ public class TemplateController implements Serializable {
     }
 
     public String logOut() {
+        SessionUtilsController.sessionClose();
         return "/view/index?faces-redirect=true";
     }
 
@@ -144,12 +146,11 @@ public class TemplateController implements Serializable {
     }
 
     public String loginController() throws NoSuchAlgorithmException {
-        Account account = LoginController.loginControl(login, MD5.hashPassword(password));
-
+        LoginController.loginControl(login, MD5.hashPassword(password));
         clearValues();
-
-        if (account != null) {
-            switch (account.getRole()) {
+        Role rola=(Role)SessionUtilsController.getRole();
+        if (null != rola) {
+            switch (rola) {
                 case PATIENT:
                     return "patient/patient";
                 case DOCTOR:

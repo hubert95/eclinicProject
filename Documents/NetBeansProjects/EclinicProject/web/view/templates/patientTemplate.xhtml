@@ -37,7 +37,7 @@
 
         <div id="main_contener">
             <div id="horizontal_menu">
-                <p id="login_text">Witaj Imię Nazwisko</p>
+                <p id="login_text">Witaj <h:outputText value="#{sessionController.getLogin()}"/></p>
                 <h:form>
                     <p:commandButton value="Wyloguj" action="#{templateController.logOut()}"/>
                     <p:commandButton value="Moje konto" action="#"/>

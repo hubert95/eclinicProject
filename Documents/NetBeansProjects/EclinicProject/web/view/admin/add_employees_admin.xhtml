@@ -15,76 +15,77 @@
 
     <ui:define name="content">
         <h1>Stwórz nowe konto pracownika</h1>
-        <h:form id="registration_form">
+        <h:form id="add_employee_form">
             <p:messages id="message" showDetail="true"/>
-            <h:panelGrid>
-                <h:outputText value="Login: *" />
-                <p:inputText value="#{addUserController.login}" required="true" requiredMessage="Login jest wymagany."/>
-
-                <f:event listener="#{addUserController.validatePassword}" type="postValidate" />
-
-                <h:outputText value="Hasło: *" />
-                <p:inputText id="password" value="#{addUserController.passw1}" type="password" required="true" requiredMessage="Pole z hasłem jest wymagane.">
-                    <f:validator validatorId="passwordValidator"/>
-                </p:inputText>
-
-                <h:outputText value="Powtórz hasło: *" />
-                <p:inputText id="confirmPassword" value="#{addUserController.passw2}" type="password" required="true" requiredMessage="Pole z potwierdzeniem hasła jest wymagane."/>
-
-                <p:outputLabel for="typeOfEmployee" value="Typ pracownika (domyślnie lekarz):" />
-                <p:selectOneMenu id="typeOfEmployee" value="#{addUserController.typeOfEmployee}" style="width:180px" >
+            <h:panelGrid columns="4" cellpadding="10" columnClasses="label, value">
+                <p:outputLabel for="typeOfEmployee" value="Typ pracownika:" />
+                <p:selectOneMenu id="typeOfEmployee" value="#{addUserController.typeOfEmployee}" style="width:200px" >
                     <f:selectItem itemLabel="Lekarz" itemValue="Lekarz"/>
                     <f:selectItem itemLabel="Recepcjonista" itemValue="Recepcjonista" />
                     <p:ajax event="change" update="specializationForDoctor" listener="#{addUserController.showSpecialization}"/>
                 </p:selectOneMenu>
                 
-                <p:selectOneMenu id="specializationForDoctor" disabled="#{addUserController.disableMenu}">
+                <p:outputLabel value="Login: " for="peselIn"/>
+                <p:inputText id="peselIn" value="#{addUserController.login}" placeholder="Login" required="true" requiredMessage="Login jest wymagany."/>
+
+                <f:event listener="#{addUserController.validatePassword}" type="postValidate" />
+
+                <p:outputLabel value="Hasło:" for="password"/>
+                <p:inputText id="password" value="#{addUserController.passw1}" placeholder="Hasło" type="password" required="true" requiredMessage="Pole z hasłem jest wymagane.">
+                    <f:validator validatorId="passwordValidator"/>
+                </p:inputText>
+
+                <p:outputLabel value="Powtórz hasło:" for="confirmPassword"/>
+                <p:inputText id="confirmPassword" value="#{addUserController.passw2}" placeholder="Powtórz hasło" type="password" required="true" requiredMessage="Pole z potwierdzeniem hasła jest wymagane."/>
+
+                <h:outputLabel value="Specjalizacja:" for="specializationForDoctor"/>
+                <p:selectOneMenu id="specializationForDoctor" disabled="#{addUserController.disableMenu}" style="width:200px">
                     <f:selectItems value="#{freeVisitController.namesOfSpecialization}" />
                 </p:selectOneMenu>
 
-                <h:outputText value="Imię: *" />
-                <p:inputText value="#{addUserController.specialist.firstname}" required="true" requiredMessage="Pole Imię jest wymagane.">
+                <p:outputLabel value="Imię:" for="name"/>
+                <p:inputText id="name" value="#{addUserController.specialist.firstname}" placeholder="Imię" required="true" requiredMessage="Pole Imię jest wymagane.">
                     <f:validator validatorId="alphabetLetterValidator"/>
                 </p:inputText>
 
-                <h:outputText value="Nazwisko: *" />
-                <p:inputText value="#{addUserController.specialist.lastname}" required="true" requiredMessage="Pole Nazwisko jest wymagane.">
+                <p:outputLabel value="Nazwisko:" for="surname"/>
+                <p:inputText id="surname" value="#{addUserController.specialist.lastname}" placeholder="Nazwisko" required="true" requiredMessage="Pole Nazwisko jest wymagane.">
                     <f:validator validatorId="alphabetLetterValidator"/>
                 </p:inputText>
 
-                <h:outputText value="Miejscowość: *" />
-                <p:inputText value="#{addUserController.address.locality}" >
+                <p:outputLabel value="Miejscowość:" for="city"/>
+                <p:inputText id="city" value="#{addUserController.address.locality}" placeholder="Miasto" required="true" requiredMessage="Pole Miejscowość jest wymagane.">
                     <f:validator validatorId="withoutSpecialCharsValidator" />
                 </p:inputText>
 
-                <h:outputText value="Ulica: *" />
-                <p:inputText value="#{addUserController.address.street}" >
+                <p:outputLabel value="Ulica:" for="street"/>
+                <p:inputText id="street" value="#{addUserController.address.street}" placeholder="Ulica" required="true" requiredMessage="Pole Ulica jest wymagane.">
                     <f:validator validatorId="withoutSpecialCharsValidator" />
                 </p:inputText>
 
-                <h:outputText value="Numer domu: *" />
-                <p:inputText value="#{addUserController.address.houseNumber}" >
+                <p:outputLabel value="Numer domu:" for="houseNumber"/>
+                <p:inputText id="houseNumber" value="#{addUserController.address.houseNumber}" placeholder="Numer domu" required="true" requiredMessage="Pole Numer domu jest wymagane.">
                     <f:validator validatorId="houseNumberValidator" />
                 </p:inputText>
 
-                <h:outputText value="Kod pocztowy: *" />
-                <p:inputText value="#{addUserController.address.postalCode}" >
+                <p:outputLabel value="Kod pocztowy:" for="postcode"/>
+                <p:inputText id="postcode" value="#{addUserController.address.postalCode}" placeholder="Kod pocztowy" required="true" requiredMessage="Pole Kod pocztowy jest wymagane.">
                     <f:validator validatorId="postalCodeValidator" />
                 </p:inputText>
 
-                <h:outputText value="Email: *" />
-                <p:inputText value="#{addUserController.contact.email}" required="true" requiredMessage="Email jest wymagany." label="Email">
+                <p:outputLabel value="Email:" for="email"/>
+                <p:inputText id="email" value="#{addUserController.contact.email}" placeholder="E-mail" required="true" requiredMessage="Email jest wymagany." label="Email">
                     <f:validator validatorId="emailValidator"/>
                 </p:inputText>
 
-                <h:outputText value="Numer telefonu: " />
-                <p:inputText value="#{addUserController.contact.phoneNumber}"/>
+                <p:outputLabel value="Numer telefonu:" for="numberPhone"/>
+                <p:inputText id="numberPhone" value="#{addUserController.contact.phoneNumber}" placeholder="Telefon"/>
 
-                <h:outputText value="Dodatkowe informacje: " />
-                <p:inputText value="#{addUserController.contact.info}"/>
+                <p:outputLabel value="Dodatkowe informacje:" for="additional"/>
+                <p:inputText id="additional" value="#{addUserController.contact.info}" placeholder="Dodatkowe informacje"/>
 
-                <h:outputText value="Typ powiadomienia: " />
-                <p:selectOneMenu id="typeOfNotify" value="#{addUserController.contact.typeOfNotifications}" style="width:180px">
+                <p:outputLabel value="Typ powiadomienia:" for="typeOfNotify"/>
+                <p:selectOneMenu id="typeOfNotify" value="#{addUserController.contact.typeOfNotifications}" style="width:200px">
                     <f:selectItem itemLabel="brak" itemValue="brak" />
                     <f:selectItem itemLabel="email" itemValue="email" />
                     <f:selectItem itemLabel="SMS" itemValue="sms" itemDisabled="true" />
