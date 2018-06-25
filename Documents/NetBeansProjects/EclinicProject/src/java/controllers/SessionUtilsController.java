@@ -65,6 +65,25 @@ public class SessionUtilsController {
             }
         }
         
+        public static Long getOwnerId(){
+            HttpSession session = getSession();
+            if (session != null) {
+                User user = (User) session.getAttribute("user");
+                return user.getId();
+            } else {
+                return null;
+            }
+        }
+        
+        public static Long getVisitId() {
+        HttpSession session = getSession();
+        if (session != null) {
+            return (Long) session.getAttribute("visitId");
+        } else {
+            return null;
+        }
+    }
+        
         public static void sessionClose(){
             HttpSession session = SessionUtilsController.getSession();
             session.invalidate();

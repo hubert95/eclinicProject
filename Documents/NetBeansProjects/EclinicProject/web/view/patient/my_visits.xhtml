@@ -4,7 +4,8 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="../templates/patientTemplate.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="head"></ui:define>
 
@@ -15,10 +16,63 @@
     <ui:define name="content">
         <h1>Moje wizyty</h1>
         <h:form>
+            <p:growl id="msg" showDetail="true"/>
             <p:tabView>
-                <p:tab title="Odbyte wizyty">
-                </p:tab>
                 <p:tab title="Przyszłe wizyty">
+                    <h:form> 
+                        <p:dataScroller value="#{ownerVisitsController.futureVisits}" var="visitFuture" chunkSize="10">
+                            <f:facet name="header">
+                                Wizyty, na które jesteś umówiony/a
+                            </f:facet>
+
+                            <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+                                <p:outputPanel>
+                                    <h:panelGrid columns="2" cellpadding="5">
+                                        <h:outputText value="Data wizyty" />
+                                        <h:outputText value="#{visitFuture.dateOfVisit}" style="font-weight: bold"/>
+
+                                        <h:outputText value="Godzina rozpoczęcia wizyty" />
+                                        <h:outputText value="#{visitFuture.beginOfTheVisit}" style="font-weight: bold"/>
+
+                                        <h:outputText value="Czas trwania wizyty" />
+                                        <h:outputText value="#{visitFuture.lengthOfVisit}" style="font-weight: bold"/>
+
+                                        <h:outputText value="Specjalista" />
+                                        <h:outputText value="#{visitFuture.specialist.firstname} #{visitFuture.specialist.lastname}" style="font-weight: bold"/>
+                                    </h:panelGrid>
+                                    <hr/>
+                                </p:outputPanel>
+                            </h:panelGrid>
+                        </p:dataScroller>
+                    </h:form>
+                </p:tab>
+                <p:tab title="Przeszłe wizyty">
+                    <h:form> 
+                        <p:dataScroller value="#{ownerVisitsController.pastVisits}" var="visitPast" chunkSize="10">
+                            <f:facet name="header">
+                                Wizyty, na których byłeś/aś
+                            </f:facet>
+
+                            <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+                                <p:outputPanel>
+                                    <h:panelGrid columns="2" cellpadding="5">
+                                        <h:outputText value="Data wizyty" />
+                                        <h:outputText value="#{visitPast.dateOfVisit}" style="font-weight: bold"/>
+
+                                        <h:outputText value="Godzina rozpoczęcia wizyty" />
+                                        <h:outputText value="#{visitPast.beginOfTheVisit}" style="font-weight: bold"/>
+
+                                        <h:outputText value="Czas trwania wizyty" />
+                                        <h:outputText value="#{visitPast.lengthOfVisit}" style="font-weight: bold"/>
+
+                                        <h:outputText value="Specjalista" />
+                                        <h:outputText value="#{visitPast.specialist.firstname} #{visitPast.specialist.lastname}" style="font-weight: bold"/>
+                                    </h:panelGrid>
+                                    <hr/>
+                                </p:outputPanel>
+                            </h:panelGrid>
+                        </p:dataScroller>
+                    </h:form>
                 </p:tab>
             </p:tabView>
         </h:form>

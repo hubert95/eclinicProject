@@ -42,7 +42,7 @@ import javax.persistence.Converter;
 @NamedQueries({
     @NamedQuery(name = "Visit.findAll", query = "SELECT v FROM Visit v"),
     @NamedQuery(name = "Visit.findById", query = "SELECT v FROM Visit v WHERE v.id = :id"),
-    @NamedQuery(name = "Visit.findAllUnreserved", query = "SELECT v FROM Visit v WHERE v.state = :state")
+    @NamedQuery(name = "Visit.findByState", query = "SELECT v FROM Visit v WHERE v.state = :state"),
 })
 public class Visit implements Serializable{
 

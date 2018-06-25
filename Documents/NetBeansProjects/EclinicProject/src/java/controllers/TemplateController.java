@@ -12,6 +12,7 @@ import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -141,7 +142,9 @@ public class TemplateController implements Serializable {
         return "generate_dates?faces-redirect=true";
     }
 
-    public String reserveTheVisit() {
+    public String reserveTheVisit(Long id) {
+        HttpSession session = SessionUtilsController.getSession();
+        session.setAttribute("visitId", id);
         return "reserve_the_visit?faces-redirect=true";
     }
 

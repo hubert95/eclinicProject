@@ -15,7 +15,7 @@
         <h1>Wolne terminy</h1>
         <h:form>
             <p:dataTable var="visit" value="#{freeVisitController.freeVisits}" widgetVar="visitsTable"
-                         emptyMessage="Brak danych spełniających kryteria" filteredValue="#{freeVisitController.filteredVisits}" >
+                         emptyMessage="Brak danych spełniających kryteria." filteredValue="#{freeVisitController.filteredVisits}" >
 
                 <f:facet name="header">
                     <p:outputPanel>
@@ -40,11 +40,11 @@
                 <p:column filterBy="#{visit.dateOfVisit}" headerText="Data wizyty" filterMatchMode="contains">
                     <h:outputText value="#{visit.dateOfVisit}" />
                 </p:column>
-                
+
                 <p:column filterBy="#{visit.beginOfTheVisit}" headerText="Godzina rozpoczęcia wizyty" filterMatchMode="contains">
                     <h:outputText value="#{visit.beginOfTheVisit}" />
                 </p:column>
-                
+
                 <p:column filterBy="#{visit.lengthOfVisit}" headerText="Czas wizyty (min)" filterMatchMode="exact">
                     <f:facet name="filter">
                         <p:selectOneMenu onchange="PF('visitsTable').filter()" >
@@ -59,9 +59,9 @@
                     </f:facet>
                     <h:outputText value="#{visit.lengthOfVisit}" />
                 </p:column>
-                
+
                 <p:column style="width:32px;text-align: center">
-                    <p:commandButton icon="ui-icon-disk" title="Zarezerwuj" action="#{templateController.reserveTheVisit}"/>
+                    <p:commandButton icon="ui-icon-disk" title="Zarezerwuj" action="#{templateController.reserveTheVisit(visit.id)}"/>
                 </p:column>
 
             </p:dataTable>
