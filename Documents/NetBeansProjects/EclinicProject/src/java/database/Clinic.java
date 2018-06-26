@@ -75,4 +75,5 @@ public class Clinic implements Serializable{
         this.address = address;
     }
     
+    
 }
