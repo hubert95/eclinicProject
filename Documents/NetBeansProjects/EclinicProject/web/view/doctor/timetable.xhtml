@@ -25,9 +25,9 @@
 
             <p:dataList id="visitList" emptyMessage="Brak wizyt w tym dniu." value="#{timetableController.visitsForCheckedDay}" var="visit" type="unordered" itemType="none" paginator="true" rows="10" styleClass="paginated">
                 <f:facet name="header">
-                    Paginator
+                    Plan dnia
                 </f:facet>
-                <p:commandLink update=":form:visitDetail" oncomplete="PF('visitDialog').show()" title="View Detail" styleClass="ui-icon ui-icon-search" style="float:left;margin-right:10px; margin-top: 5px;">
+                <p:commandLink update=":form:visitDetail" oncomplete="PF('visitDialog').show()" title="Pokaż szczegóły" styleClass="ui-icon ui-icon-search" style="float:left;margin-right:10px; margin-top: 5px;">
                     <f:setPropertyActionListener value="#{visit}" target="#{timetableController.selectedVisit}" />
                     <h:outputText value="#{visit.id}, #{visit.beginOfTheVisit}" />
                 </p:commandLink>
@@ -45,7 +45,7 @@
 
                         <h:outputText value="Stan wizyty:" />
                         <h:outputText value="#{timetableController.selectedVisit.state}" />
-                        
+
                         <h:outputText value="Cena wizyty:" />
                         <h:outputText value="#{timetableController.selectedVisit.price}" />
                     </p:panelGrid>

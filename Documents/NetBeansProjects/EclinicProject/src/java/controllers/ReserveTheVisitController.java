@@ -10,6 +10,7 @@ import database.PatientCard;
 import database.Visit;
 import database.VisitState;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -17,20 +18,45 @@ import javax.persistence.EntityManager;
 
 /**
  *
- * @author Admin
+ * @author Hubert Januszek
  */
 @ManagedBean(name = "reserveController")
 @RequestScoped
 public class ReserveTheVisitController {
 
-    /**
-     * Creates a new instance of ReserveTheVisitController
-     */
+    private Visit selectedVisit; 
+    
+    
     public ReserveTheVisitController() {
     }
+    
+    @PostConstruct
+    public void init(){
+        EntityManager em = DBManager.getManager().createEntityManager();
+        Long visitId = SessionUtilsController.getVisitId();
+ 
+        try {
+            em.getTransaction().begin();
+            selectedVisit = (Visit) em.createNamedQuery("Visit.findById").setParameter("id", visitId).getSingleResult();
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+    }
+
+    public Visit getSelectedVisit() {
+        return selectedVisit;
+    }
+
+    public void setSelectedVisit(Visit selectedVisit) {
+        this.selectedVisit = selectedVisit;
+    }
+
 
     public String reserveWithoutPay() {
-        Long visitId = SessionUtilsController.getVisitId();
+        Long visitId = selectedVisit.getId();
         Long userId = SessionUtilsController.getOwnerId();
         Patient patient = null;
         PatientCard cardOfPatient = null;
@@ -67,8 +93,7 @@ public class ReserveTheVisitController {
     }
 
     public void reserveWithPay() {
-        Long visitId = SessionUtilsController.getVisitId();
-
+        System.out.println("Siemka Dominik ;P");
     }
 
 }

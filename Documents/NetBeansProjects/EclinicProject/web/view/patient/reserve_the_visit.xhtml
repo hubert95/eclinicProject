@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns="http://www.w3.org/1999/xhtml"
                 template="../templates/patientTemplate.xhtml"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://xmlns.jcp.org/jsf/html">
@@ -12,9 +13,21 @@
     </ui:define>
 
     <ui:define name="content">
+        <h1>Rezerwacja wybranej wizyty</h1>
         <h:form>
-            <p:commandButton value="Zapłacę gotówką" action="#{reserveController.reserveWithoutPay}" />
-            <p:commandButton value="Płacę teraz" action="#{reserveController.reserveWithPay}" />
+            <p:panelGrid columns="2" style="width: 500px; margin-left: 33%; margin-top: 50px;">
+                <p:outputLabel value="Wizyta u specjalisty :" for="specialization"/>
+                <h:outputText id="specialization" value="#{reserveController.selectedVisit.specialist.specialization.name}" style="font-weight: bold;"/>
+                <p:outputLabel value="Data wizyty :" for="date" />
+                <h:outputText id="date" value="#{reserveController.selectedVisit.dateOfVisit}" style="font-weight: bold;"/>
+                <p:outputLabel value="Czas trwania wizyty :" for="time" />
+                <h:outputText id="time" value="#{reserveController.selectedVisit.lengthOfVisit}" style="font-weight: bold;"/>
+                <p:outputLabel value="Cena wizyty :" for="price" />
+                <h:outputText id="price" value="#{reserveController.selectedVisit.price}" style="font-weight: bold;"/>
+                <p:commandButton value="Zapłacę gotówką" action="#{reserveController.reserveWithoutPay}" style="float: left;"/>
+                <p:commandButton value="Płacę teraz" action="#{reserveController.reserveWithPay}" style="float: left;"/> 
+            </p:panelGrid>
+            
         </h:form>
     </ui:define>
 
