@@ -30,26 +30,20 @@ public class OwnerVisitsController {
     public List<Visit> getFutureVisits(){
         Long id = SessionUtilsController.getOwnerId();
         Patient patient = null;
-        List<Visit> visitsUnpayed = null, visitsPayed = null, allVisits = null;
+        List<Visit> allVisits = null;
         EntityManager em = DBManager.getManager().createEntityManager();
         
         try {
             em.getTransaction().begin();
             patient = (Patient) em.createNamedQuery("Patient.findById").setParameter("id", id).getSingleResult();
-            visitsUnpayed = (List<Visit>) em.createNamedQuery("Visit.findByState").setParameter("state", VisitState.UNPAYED).getResultList();
-            visitsPayed = (List<Visit>) em.createNamedQuery("Visit.findByState").setParameter("state", VisitState.PAYED).getResultList();
+            allVisits = (List<Visit>) em.createNamedQuery("Visit.findUnpayedAndPayed").getResultList();
             em.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             em.close();
         }
-        
-        for(Visit v : visitsPayed){
-            visitsUnpayed.add(v);
-        }
-        
-        return visitsUnpayed;
+        return allVisits;
     }
     
     public List<Visit> getPastVisits() {

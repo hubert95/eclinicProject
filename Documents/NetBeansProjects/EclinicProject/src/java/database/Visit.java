@@ -43,6 +43,7 @@ import javax.persistence.Converter;
     @NamedQuery(name = "Visit.findAll", query = "SELECT v FROM Visit v"),
     @NamedQuery(name = "Visit.findById", query = "SELECT v FROM Visit v WHERE v.id = :id"),
     @NamedQuery(name = "Visit.findByState", query = "SELECT v FROM Visit v WHERE v.state = :state"),
+    @NamedQuery(name = "Visit.findUnpayedAndPayed", query = "SELECT v FROM Visit v WHERE v.state = database.VisitState.UNPAYED OR v.state = database.VisitState.PAYED"),  
     @NamedQuery(name = "Visit.findForTimetable", query = "SELECT v FROM Visit v WHERE v.specialist.id = :specialistId AND v.dateOfVisit = :dateOfVisit AND (v.state = database.VisitState.UNPAYED OR v.state = database.VisitState.PAYED)")
 })
 public class Visit implements Serializable{
