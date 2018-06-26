@@ -23,19 +23,19 @@
                         <p:messages showDetail="true"/>
                         <h:panelGrid columns="2" columnClasses="label, value">
                             <h:outputText value="PESEL: *" />
-                            <p:inputText value="#{registerController.patient.pesel}" required="true" requiredMessage="Numer PESEL jest wymagany.">
+                            <p:inputText value="#{registerController.patient.pesel}" required="true" requiredMessage="Numer PESEL jest wymagany." placeholder="Wpisz PESEL">
                                 <f:validator validatorId="peselValidator"/>
                             </p:inputText>
 
                             <f:event listener="#{registerController.validatePassword}" type="postValidate" />
 
                             <h:outputText value="Hasło: *" />
-                            <p:inputText id="password" value="#{registerController.passw1}" type="password" required="true" requiredMessage="Pole z hasłem jest wymagane.">
+                            <p:inputText id="password" value="#{registerController.passw1}" type="password" required="true" requiredMessage="Pole z hasłem jest wymagane." placeholder="Wpisz hasło">
                                 <f:validator validatorId="passwordValidator"/>
                             </p:inputText>
 
                             <h:outputText value="Powtórz hasło: *" />
-                            <p:inputText id="confirmPassword" value="#{registerController.passw2}" type="password" required="true" requiredMessage="Pole z potwierdzeniem hasła jest wymagane."/>
+                            <p:inputText id="confirmPassword" value="#{registerController.passw2}" type="password" required="true" requiredMessage="Pole z potwierdzeniem hasła jest wymagane." placeholder="Wpisz hasło ponownie"/>
 
                             <h:selectBooleanCheckbox style="visibility: hidden;" value="#{registerController.skip}" />
                         </h:panelGrid>
@@ -47,12 +47,12 @@
                         <p:messages />
                         <h:panelGrid columns="2" columnClasses="label, value">
                             <h:outputText value="Imię: *" />
-                            <p:inputText value="#{registerController.patient.firstname}" required="true" requiredMessage="Pole Imię jest wymagane.">
+                            <p:inputText value="#{registerController.patient.firstname}" required="true" requiredMessage="Pole Imię jest wymagane." placeholder="Wpisz swoje imię">
                                 <f:validator validatorId="alphabetLetterValidator"/>
                             </p:inputText>
 
                             <h:outputText value="Nazwisko: *" />
-                            <p:inputText value="#{registerController.patient.lastname}" required="true" requiredMessage="Pole Nazwisko jest wymagane.">
+                            <p:inputText value="#{registerController.patient.lastname}" required="true" requiredMessage="Pole Nazwisko jest wymagane." placeholder="Wpisz swoje nazwisko">
                                 <f:validator validatorId="alphabetLetterValidator"/>
                             </p:inputText>
 
@@ -66,22 +66,22 @@
                         <p:messages />
                         <h:panelGrid columns="2" columnClasses="label, value">
                             <h:outputText value="Miejscowość: *" />
-                            <p:inputText value="#{registerController.address.locality}" >
+                            <p:inputText value="#{registerController.address.locality}" placeholder="Wpisz miejscowość">
                                 <f:validator validatorId="withoutSpecialCharsValidator" />
                             </p:inputText>
 
                             <h:outputText value="Ulica: *" />
-                            <p:inputText value="#{registerController.address.street}" >
+                            <p:inputText value="#{registerController.address.street}" placeholder="Wpisz ulicę">
                                 <f:validator validatorId="withoutSpecialCharsValidator" />
                             </p:inputText>
 
                             <h:outputText value="Numer domu: *" />
-                            <p:inputText value="#{registerController.address.houseNumber}" >
+                            <p:inputText value="#{registerController.address.houseNumber}" placeholder="Wpisz numer domu">
                                 <f:validator validatorId="houseNumberValidator" />
                             </p:inputText>
 
                             <h:outputText value="Kod pocztowy: *" />
-                            <p:inputText value="#{registerController.address.postalCode}" >
+                            <p:inputText value="#{registerController.address.postalCode}" placeholder="Wpisz kod pocztowy (xx-xxx)">
                                 <f:validator validatorId="postalCodeValidator" />
                             </p:inputText>
 
@@ -95,15 +95,15 @@
                         <p:messages />
                         <h:panelGrid columns="2" columnClasses="label, value">
                             <h:outputText value="Email: *" />
-                            <p:inputText value="#{registerController.contact.email}" required="true" requiredMessage="Email jest wymagany." label="Email">
+                            <p:inputText value="#{registerController.contact.email}" required="true" requiredMessage="Email jest wymagany." label="Email" placeholder="Wpisz e-mail">
                                 <f:validator validatorId="emailValidator"/>
                             </p:inputText>
 
                             <h:outputText value="Numer telefonu: " />
-                            <p:inputText value="#{registerController.contact.phoneNumber}"/>
+                            <p:inputText value="#{registerController.contact.phoneNumber}" placeholder="Wpisz numer telefonu"/>
 
                             <h:outputText value="Dodatkowe informacje: " />
-                            <p:inputText value="#{registerController.contact.info}"/>
+                            <p:inputText value="#{registerController.contact.info}" placeholder="Wpisz dodatkowe informacje"/>
 
                             <h:outputText value="Typ powiadomienia: " />
                             <p:selectOneMenu id="typeOfNotify" value="#{registerController.contact.typeOfNotifications}" style="width:125px">

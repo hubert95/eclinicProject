@@ -5,8 +5,10 @@
  */
 package controllers;
 
+import controllers.security.MD5;
 import database.RangeOfAdmission;
 import database.Specialist;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -30,7 +32,7 @@ public class DisplaySpecialistController {
         return selectedSpecialist;
     }
 
-    public void setSelectedSpecialist(Specialist selectedSpecialist) {
+    public void setSelectedSpecialist(Specialist selectedSpecialist){
         this.selectedSpecialist = selectedSpecialist;
     }
     
@@ -47,6 +49,7 @@ public class DisplaySpecialistController {
         } finally {
             em.close();
         }
+        
         return specialists;
     }
 
