@@ -6,47 +6,42 @@
 package database;
 
 import controllers.converters.VisitStateConverter;
-import controllers.converters.WeekDayConverter;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Date;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Convert;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import java.util.List;
-import javax.persistence.Converter;
 
 /**
  *
  * @author Hubert Januszek
  */
-
 @Entity
 @TableGenerator(name = "visit")
 @NamedQueries({
-    @NamedQuery(name = "Visit.findAll", query = "SELECT v FROM Visit v"),
-    @NamedQuery(name = "Visit.findById", query = "SELECT v FROM Visit v WHERE v.id = :id"),
-    @NamedQuery(name = "Visit.findByState", query = "SELECT v FROM Visit v WHERE v.state = :state"),
-    @NamedQuery(name = "Visit.findUnpayedAndPayed", query = "SELECT v FROM Visit v WHERE v.state = database.VisitState.UNPAYED OR v.state = database.VisitState.PAYED"),  
+    @NamedQuery(name = "Visit.findAll", query = "SELECT v FROM Visit v")
+    ,
+    @NamedQuery(name = "Visit.findById", query = "SELECT v FROM Visit v WHERE v.id = :id")
+    ,
+    @NamedQuery(name = "Visit.findByState", query = "SELECT v FROM Visit v WHERE v.state = :state")
+    ,
+    @NamedQuery(name = "Visit.findUnpayedAndPayed", query = "SELECT v FROM Visit v WHERE v.state = database.VisitState.UNPAYED OR v.state = database.VisitState.PAYED")
+    ,  
     @NamedQuery(name = "Visit.findForTimetable", query = "SELECT v FROM Visit v WHERE v.specialist.id = :specialistId AND v.dateOfVisit = :dateOfVisit AND (v.state = database.VisitState.UNPAYED OR v.state = database.VisitState.PAYED)")
 })
-public class Visit implements Serializable{
+public class Visit implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -66,7 +61,7 @@ public class Visit implements Serializable{
 
     public Visit() {
     }
-    
+
     public long getId() {
         return id;
     }
@@ -90,7 +85,7 @@ public class Visit implements Serializable{
     public void setDateOfVisit(Date dateOfVisit) {
         this.dateOfVisit = dateOfVisit;
     }
-    
+
     public LocalTime getBeginOfTheVisit() {
         return beginOfTheVisit;
     }
@@ -106,7 +101,6 @@ public class Visit implements Serializable{
     public void setLengthOfVisit(int lengthOfVisit) {
         this.lengthOfVisit = lengthOfVisit;
     }
-    
 
     public VisitState getState() {
         return state;
@@ -122,5 +116,23 @@ public class Visit implements Serializable{
 
     public void setPrice(float price) {
         this.price = price;
+    }
+
+    public String getStringStateName() {
+        switch (state) {
+            case UNRESERVED:
+                return "Niezarezerwowana";
+            case UNPAYED:
+                return "Nieopłacona";
+            case PAYED:
+                return "Opłacona";
+            case CANCELEDBYCLINIC:
+                return "Anulowana przez przychodnię";
+            case CANCELEDBYPATIENT:
+                return "Anulowana przez pacjenta";
+            case FINISHED:
+                return "Zakończona";
+        }
+        return null;
     }
 }

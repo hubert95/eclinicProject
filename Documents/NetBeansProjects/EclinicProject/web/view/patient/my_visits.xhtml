@@ -28,16 +28,19 @@
                             <h:panelGrid columns="2" style="width:100%">
                                 <p:outputPanel>
                                     <h:panelGrid columns="2" cellpadding="5">
-                                        <h:outputText value="Data wizyty" />
+                                        <h:outputText value="Data wizyty: " />
                                         <h:outputText value="#{visitFuture.dateOfVisit}" style="font-weight: bold"/>
 
-                                        <h:outputText value="Godzina rozpoczęcia wizyty" />
+                                        <h:outputText value="Godzina rozpoczęcia wizyty: " />
                                         <h:outputText value="#{visitFuture.beginOfTheVisit}" style="font-weight: bold"/>
 
-                                        <h:outputText value="Czas trwania wizyty" />
+                                        <h:outputText value="Czas trwania wizyty: " />
                                         <h:outputText value="#{visitFuture.lengthOfVisit}" style="font-weight: bold"/>
 
-                                        <h:outputText value="Specjalista" />
+                                        <h:outputText value="Wizyta jest: " />
+                                        <h:outputText value="#{visitFuture.stringStateName}" style="font-weight: bold"/>
+
+                                        <h:outputText value="Specjalista: " />
                                         <h:outputText value="#{visitFuture.specialist.firstname} #{visitFuture.specialist.lastname}" style="font-weight: bold"/>
                                         <p:commandButton value="Odwołaj wizytę" style="font-weight: bold"/>
                                     </h:panelGrid>
