@@ -10,29 +10,6 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <script src="https://www.paypalobjects.com/api/checkout.js" type="text/javascript"></script>
-    </ui:define>
-
-    <ui:define name="menu">
-    </ui:define>
-
-    <ui:define name="content">
-        <h1>Rezerwacja wybranej wizyty</h1>
-        <h:form>
-            <p:panelGrid columns="2" style="width: 500px; margin-left: 33%; margin-top: 50px;">
-                <p:outputLabel value="Wizyta u specjalisty :" for="specialization"/>
-                <h:outputText id="specialization" value="#{reserveController.selectedVisit.specialist.specialization.name}" style="font-weight: bold;"/>
-                <p:outputLabel value="Data wizyty :" for="date" />
-                <h:outputText id="date" value="#{reserveController.selectedVisit.dateOfVisit}" style="font-weight: bold;"/>
-                <p:outputLabel value="Czas trwania wizyty :" for="time" />
-                <h:outputText id="time" value="#{reserveController.selectedVisit.lengthOfVisit}" style="font-weight: bold;"/>
-                <p:outputLabel value="Cena wizyty :" for="price" />
-                <h:outputText id="price" value="#{reserveController.selectedVisit.price}" style="font-weight: bold;"/>
-                <p:commandButton value="Zapłacę gotówką" action="#{reserveController.reserveWithoutPay}" style="float: left;"/>
-                <div id="paypal-button"></div>
-                <p:remoteCommand name="zaplac" action="#{reserveController.reserveWithPay}"/>
-            </p:panelGrid>
-
-        </h:form>
         <script type="text/javascript">
             paypal.Button.render({
                 env: 'sandbox', // sandbox | production
@@ -68,6 +45,29 @@
             }, '#paypal-button');
 
         </script>
+    </ui:define>
+
+    <ui:define name="menu">
+    </ui:define>
+
+    <ui:define name="content">
+        <h1>Rezerwacja wybranej wizyty</h1>
+        <h:form>
+            <p:panelGrid columns="2" style="width: 500px; margin-left: 33%; margin-top: 50px;">
+                <p:outputLabel value="Wizyta u specjalisty :" for="specialization"/>
+                <h:outputText id="specialization" value="#{reserveController.selectedVisit.specialist.specialization.name}" style="font-weight: bold;"/>
+                <p:outputLabel value="Data wizyty :" for="date" />
+                <h:outputText id="date" value="#{reserveController.selectedVisit.dateOfVisit}" style="font-weight: bold;"/>
+                <p:outputLabel value="Czas trwania wizyty :" for="time" />
+                <h:outputText id="time" value="#{reserveController.selectedVisit.lengthOfVisit}" style="font-weight: bold;"/>
+                <p:outputLabel value="Cena wizyty :" for="price" />
+                <h:outputText id="price" value="#{reserveController.selectedVisit.price}" style="font-weight: bold;"/>
+                <p:commandButton value="Zapłacę gotówką" action="#{reserveController.reserveWithoutPay}" style="float: left;"/>
+                <div id="paypal-button"></div>
+                <p:remoteCommand name="zaplac" action="#{reserveController.reserveWithPay}"/>
+            </p:panelGrid>
+
+        </h:form>
     </ui:define>
 
 </ui:composition>

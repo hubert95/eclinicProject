@@ -5,14 +5,18 @@
  */
 package database;
 
+import controllers.DBManager;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.TableGenerator;
 
@@ -22,25 +26,22 @@ import javax.persistence.TableGenerator;
  */
 @Entity
 @TableGenerator(name = "clinic")
+@NamedQueries({
+    @NamedQuery(name = "Clinic.findAll", query = "SELECT c FROM Clinic c"),
+    @NamedQuery(name = "Clinic.findByName", query = "SELECT c FROM Clinic c WHERE c.name = :name")
+})
 public class Clinic implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name = "Przychodnia NFZ Kielce";
+    private String name;
     @OneToOne
     private Contact contact;
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Address address;
-    
-    @PostConstruct
-    public void init(){
-        contact.setEmail("przychodnia-kielce@gmail.com");
-        contact.setPhoneNumber("500-111-222");
-        address.setLocality("Kielce");
-        address.setStreet("Grunwaldzka");
-        address.setPostalCode("00-321");
-        address.setHouseNumber("230C");
+
+    public Clinic() {
     }
 
     public Long getId() {

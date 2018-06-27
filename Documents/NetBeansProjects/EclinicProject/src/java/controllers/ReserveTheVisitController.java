@@ -119,6 +119,7 @@ public class ReserveTheVisitController {
             em.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
+            MessageController.addMessageAfterRedirect("Bląd.", "Wizyta nie została zarezerwowana. Spróbuj ponownie lub skontaktuj się z administratorem.", FacesMessage.SEVERITY_INFO);
         } finally {
             em.close();
         }

@@ -3,6 +3,7 @@
   <persistence-unit name="EclinicProjectPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
     <class>database.Account</class>
+    <class>database.User</class>
     <class>database.Address</class>
     <class>database.Admin</class>
     <class>database.Clinic</class>
@@ -16,7 +17,6 @@
     <class>database.Recipe</class>
     <class>database.Specialist</class>
     <class>database.Specialization</class>
-    <class>database.User</class>
     <class>database.Visit</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>

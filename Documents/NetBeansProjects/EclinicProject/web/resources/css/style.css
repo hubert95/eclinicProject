@@ -255,3 +255,8 @@ article p, h2{
 :-moz-placeholder { /* Firefox 18- */
     font-size: 14px;
 }
+
+#paypal-button{
+    width: 120px;
+    height: 30px;
+}

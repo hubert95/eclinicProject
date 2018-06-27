@@ -145,9 +145,8 @@ public class RegisterController implements Serializable {
         account.setRole(Account.Role.PATIENT);
         patient.setAccount(account);
         PatientCard pc = new PatientCard();
-        Clinic cl = new Clinic();
-        pc.setClinic(new Clinic());
         pc.setPatient(patient);
+        pc.setClinic("Przychodnia NFZ Kielce");
         List<PatientCard> cards = new ArrayList<>();
         cards.add(pc);
         patient.setPatientCards(cards);

@@ -27,6 +27,10 @@ public abstract class User extends Person implements Serializable {
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Account account;
 
+    public User() {
+    }
+
+
     public Account getAccount() {
         return account;
     }

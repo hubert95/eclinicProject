@@ -5,12 +5,15 @@
  */
 package database;
 
+import controllers.DBManager;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.TableGenerator;
 import java.io.Serializable;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.persistence.CascadeType;
+import javax.persistence.EntityManager;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.ManyToOne;
@@ -30,13 +33,16 @@ public class PatientCard implements Serializable{
     private Long id;
     @ManyToOne
     private Patient patient;
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.MERGE)
     private Clinic clinic;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Visit> visits;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Recipe> recipes;
-
+    
+    public PatientCard() {
+    }
+    
     public Long getId() {
         return id;
     }
@@ -56,11 +62,7 @@ public class PatientCard implements Serializable{
     public Clinic getClinic() {
         return clinic;
     }
-
-    public void setClinic(Clinic clinic) {
-        this.clinic = clinic;
-    }
-
+    
     public List<Visit> getVisits() {
         return visits;
     }
@@ -69,6 +71,23 @@ public class PatientCard implements Serializable{
         this.visits = visits;
     }
 
+    public void setClinic(String name) {
+        Clinic c = null;
+        
+        EntityManager em = DBManager.getManager().createEntityManager();
+        try {
+            em.getTransaction().begin();
+            c = (Clinic) em.createNamedQuery("Clinic.findByName").setParameter("name", name).getSingleResult();
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+        System.out.println(c.getName());
+        this.clinic = c;
+    }
+    
     public List<Recipe> getRecipes() {
         return recipes;
     }
