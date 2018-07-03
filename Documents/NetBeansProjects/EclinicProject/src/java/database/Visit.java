@@ -37,6 +37,8 @@ import javax.persistence.TemporalType;
     ,
     @NamedQuery(name = "Visit.findByState", query = "SELECT v FROM Visit v WHERE v.state = :state")
     ,
+    @NamedQuery(name = "Visit.findAllFreeDates", query = "SELECT v FROM Visit v WHERE v.state = database.VisitState.UNRESERVED AND v.dateOfVisit > :date")
+    ,
     @NamedQuery(name = "Visit.findUnpayedAndPayed", query = "SELECT v FROM Visit v WHERE v.state = database.VisitState.UNPAYED OR v.state = database.VisitState.PAYED")
     ,  
     @NamedQuery(name = "Visit.findForTimetable", query = "SELECT v FROM Visit v WHERE v.specialist.id = :specialistId AND v.dateOfVisit = :dateOfVisit AND (v.state = database.VisitState.UNPAYED OR v.state = database.VisitState.PAYED)")
@@ -58,6 +60,7 @@ public class Visit implements Serializable {
     @Convert(converter = VisitStateConverter.class)
     @Enumerated(EnumType.STRING)
     private VisitState state = VisitState.UNRESERVED;
+    
 
     public Visit() {
     }

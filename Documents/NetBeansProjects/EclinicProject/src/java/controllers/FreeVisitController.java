@@ -9,6 +9,7 @@ import database.Specialization;
 import database.Visit;
 import database.VisitState;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -80,7 +81,7 @@ public class FreeVisitController {
         
         try {
             em.getTransaction().begin();
-            visits = (List<Visit>) em.createNamedQuery("Visit.findByState").setParameter("state", VisitState.UNRESERVED).getResultList();
+            visits = (List<Visit>) em.createNamedQuery("Visit.findAllFreeDates").setParameter("date", new Date()).getResultList();
             em.getTransaction().commit();
         } catch (Exception e) {
         } finally {

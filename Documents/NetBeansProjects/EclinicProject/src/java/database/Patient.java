@@ -17,6 +17,7 @@ import javax.faces.application.FacesMessage;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.TableGenerator;
@@ -44,7 +45,7 @@ public class Patient extends User implements Serializable {
     private Date dateOfBirth;
     @Transient
     private final SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-    @OneToMany(mappedBy = "patient", orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "patient", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<PatientCard> patientCards;
    
 

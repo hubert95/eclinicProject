@@ -84,7 +84,7 @@ public class PatientCard implements Serializable{
         } finally {
             em.close();
         }
-        System.out.println(c.getName());
+        
         this.clinic = c;
     }
     

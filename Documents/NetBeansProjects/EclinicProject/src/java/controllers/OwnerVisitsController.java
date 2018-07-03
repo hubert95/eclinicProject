@@ -43,6 +43,7 @@ public class OwnerVisitsController {
         } finally {
             em.close();
         }
+        
         return allVisits;
     }
     

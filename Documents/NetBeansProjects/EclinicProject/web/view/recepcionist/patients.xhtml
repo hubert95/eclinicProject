@@ -25,7 +25,7 @@
                     <p:dataTable id="patientType" var="patient" value="#{managePatientController.patients}" selectionMode="single" selection="#{managePatientController.selectedPatient}" rowKey="#{patient.id}" emptyMessage="Brak pacientów w bazie.">
                         <p:messages id="message"/>
                         <f:facet name="header">
-                            Lista lekarzy
+                            Lista pacjentów
                         </f:facet>
                         <p:column style="width:16px">
                             <p:rowToggler />
@@ -75,10 +75,17 @@
                     </p:dataTable>
                 </h:form>
             </p:tab>
-            <p:tab title="Rezerwacja wizyty" disabled="#{!managePatientController.tab}">                    
+            <p:tab title="Rezerwacja wizyty" disabled="#{!managePatientController.tab}">      
                 <h:form id="freeVisitsForm" style="max-height: 150px;">
-                    <p:dataTable var="visit" value="#{freeVisitController.freeVisits}" widgetVar="visitsTable"
-                                 emptyMessage="Brak danych spełniających kryteria" filteredValue="#{freeVisitController.filteredVisits}">
+                    <p:dataTable id="visitTab" var="visit" value="#{freeVisitController.freeVisits}" widgetVar="visitsTable"
+                                 emptyMessage="Brak danych spełniających kryteria." filteredValue="#{freeVisitController.filteredVisits}" >
+
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <p:inputText id="globalFilter" onkeyup="PF('visitsTable').filter()" style="width:100%" placeholder="Wyszukaj"/>
+                            </p:outputPanel>
+                        </f:facet>
+
                         <p:column filterBy="#{visit.specialist.specialization.name}" headerText="Specjalizacja" filterMatchMode="exact">
                             <f:facet name="filter">
                                 <p:selectOneMenu onchange="PF('visitsTable').filter()" >
@@ -118,30 +125,70 @@
 
                         <p:column style="width:32px;text-align: center">
                             <p:growl id="growl" showDetail="true"/>
-                            <p:commandButton icon="ui-icon-disk" title="Zarezerwuj" action="#{freeVisitController.notLoggedForReservation}" update="growl"/>
+                            <p:commandButton icon="ui-icon-disk" title="Zarezerwuj" action="#{managePatientController.reserve(visit.id)}" update="growl visitTab"/>
                         </p:column>
-
                     </p:dataTable>
                 </h:form>
             </p:tab>
-            <p:tab title="Odwołanie wizyty" disabled="#{!managePatientController.tab}">
-                <h:panelGrid columns="2" cellpadding="10">
-                    <h:outputText value="Odwołanie wizyty" />
-                </h:panelGrid>
-            </p:tab>
-            <p:tab title="Zarządzanie kontem" disabled="#{!managePatientController.tab}">
-                <h:panelGrid columns="2" cellpadding="10">
-                    <h:outputText value="Zablokowanie konta" />
-                </h:panelGrid>
-            </p:tab>
-            <p:tab title="Zwrot pieniędzy" disabled="#{managePatientController.tab}">
-                <h:panelGrid columns="2" cellpadding="10">
-                    <h:outputText value="Zwrot pieniędzy" />
-                </h:panelGrid>
+            <p:tab title="Odwołanie wizyty" disabled="#{managePatientController.tab}">
+                <h:form id="cancelVisitForm">
+                    <p:dataTable id="visitTab" var="visit" value="#{managePatientController.notCanceledVisits}" widgetVar="visitsTable"
+                                 emptyMessage="Brak danych spełniających kryteria." filteredValue="#{managePatientController.filteredVisits}" >
+
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <p:inputText id="globalFilter" onkeyup="PF('visitsTable').filter()" style="width:100%" placeholder="Wyszukaj"/>
+                            </p:outputPanel>
+                        </f:facet>
+
+                        <p:column filterBy="#{visit.specialist.specialization.name}" headerText="Specjalizacja" filterMatchMode="exact">
+                            <f:facet name="filter">
+                                <p:selectOneMenu onchange="PF('visitsTable').filter()" >
+                                    <f:selectItem itemLabel="Wszystkie" itemValue="#{null}" noSelectionOption="true" />
+                                    <f:selectItems value="#{freeVisitController.namesOfSpecialization}" />
+                                </p:selectOneMenu>
+                            </f:facet>
+                            <h:outputText value="#{visit.specialist.specialization.name}" />
+                        </p:column>
+
+                        <p:column filterBy="#{visit.specialist.firstname} #{visit.specialist.lastname}" headerText="Specjalista" filterMatchMode="contains">
+                            <h:outputText value="#{visit.specialist.firstname} #{visit.specialist.lastname}" />
+                        </p:column>
+
+                        <p:column filterBy="#{visit.dateOfVisit}" headerText="Data wizyty" filterMatchMode="contains">
+                            <h:outputText value="#{visit.dateOfVisit}" />
+                        </p:column>
+
+                        <p:column filterBy="#{visit.beginOfTheVisit}" headerText="Godzina rozpoczęcia wizyty" filterMatchMode="contains">
+                            <h:outputText value="#{visit.beginOfTheVisit}" />
+                        </p:column>
+
+                        <p:column filterBy="#{visit.lengthOfVisit}" headerText="Czas wizyty (min)" filterMatchMode="exact">
+                            <f:facet name="filter">
+                                <p:selectOneMenu onchange="PF('visitsTable').filter()" >
+                                    <f:selectItem itemLabel="Wszystkie" itemValue="#{null}" noSelectionOption="true" />
+                                    <f:selectItem itemLabel="10" itemValue="10" />
+                                    <f:selectItem itemLabel="20" itemValue="20" />
+                                    <f:selectItem itemLabel="30" itemValue="30" />
+                                    <f:selectItem itemLabel="40" itemValue="40" />
+                                    <f:selectItem itemLabel="50" itemValue="50" />
+                                    <f:selectItem itemLabel="60" itemValue="60" />
+                                </p:selectOneMenu>
+                            </f:facet>
+                            <h:outputText value="#{visit.lengthOfVisit}" />
+                        </p:column>
+
+                        <p:column style="width:32px;text-align: center">
+                            <p:growl id="growl" showDetail="true"/>
+                            <p:commandButton icon="ui-icon-disk" title="Odwołaj" action="#{managePatientController.cancelByClinic(visit.id)}" update="growl visitTab"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
             </p:tab>
             <p:tab title="Nowy pacjent" disabled="#{managePatientController.tab}">
                 <h:form>
-                    <p:messages showDetail="true"/>
+                    <p:growl showDetail="true" />
+                    <p:messages id="message" showDetail="true"/>
                     <h:panelGrid columns="6" cellpadding="10">
                         <h:outputText value="PESEL: *" />
                         <p:inputText value="#{registerController.patient.pesel}" required="true" requiredMessage="Numer PESEL jest wymagany.">
@@ -201,13 +248,14 @@
                         <p:inputText value="#{registerController.contact.info}"/>
 
                         <h:outputText value="Typ powiadomienia: " />
-                        <p:selectOneMenu id="typeOfNotify" value="#{registerController.contact.typeOfNotifications}" style="width:125px">
+                        <p:selectOneMenu id="typeOfNotify" value="#{registerController.contact.typeOfNotifications}" style="width:125px;">
                             <f:selectItem itemLabel="brak" itemValue="brak" />
                             <f:selectItem itemLabel="email" itemValue="email" />
                             <f:selectItem itemLabel="SMS" itemValue="sms" itemDisabled="true" />
                             <f:selectItem itemLabel="email i SMS" itemValue="emailsms" itemDisabled="true"/>
                         </p:selectOneMenu>
                     </h:panelGrid>
+                    <p:commandButton value="Dodaj pacjenta" actionListener="#{registerController.save}" action="#{templateController.recepcionistPatients()}" update="message :patientTabView"/>
                 </h:form>
             </p:tab>  
         </p:tabView>
